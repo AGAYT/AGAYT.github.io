@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>adfsfdsa</title>
+    <url>/2021/05/17/adfsfdsa/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>burpsuite使用</title>
+    <url>/2021/05/17/burpsuite%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>cname detect</title>
+    <url>/2021/05/17/cname-detect/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>last try</title>
+    <url>/2021/05/17/last-try/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/05/17/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>更换主题</title>
+    <url>/2021/05/17/%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>第二次尝试</title>
+    <url>/2021/05/17/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%B0%9D%E8%AF%95/</url>
+    <content><![CDATA[<p>#abc<br>#$$fdsfd<br>{dsfds}<br>(百度)[<a href="http://www.baidu.com]">http://www.baidu.com]</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>categories</title>
+    <url>/2021/05/17/categories/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>常见的数据寻址方式</title>
+    <url>/2021/05/18/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<p>1.隐含寻址</p>
+<p>在指令中隐含着操作数的地址。</p>
+<p>如单地址的指令格式，就不是明显地在地址字段中指出第二操作数的地址，而是规定累加器ACC作为第二操作数，指令格式明显指出的仅是第一操作数的地址。因此，累加器ACC对单地址指令格式来说是隐含地址。</p>
+<p>隐含寻址的优点是有利于缩短指令字长；缺点是需增加硬件。</p>
+<p>2.立即（数）寻址</p>
+<p>这种类型的指针的地址字段指出的不是操作数的地址么事操作数本身，又称为立即数。数据是用补码形式存放的。<br>OP      #(立即寻址特征)        A操作数本身</p>
+<p>立即寻址的优点是指令在执行阶段不访问主存，指令执行时间短；缺点是A的位数限制了立即数的范围。</p>
+<p>3.直接寻址</p>
+<p>指令字的形式地址地址A就是操作数的真实地址EA，即EA=A。</p>
+<p>直接寻址的优点是简单，指令在执行阶段仅访问一次主存，不需要专门计算操作的地址；缺点是A的位数决定了该指令操作数的寻址范围，操作数的地址不易修改。</p>
+<p>4.间接寻址</p>
+<p>间接寻址是相对于直接寻址而言的，指令的地址字段给出的形式地址不是操作数的真实地址，而是操作数有效地址所在的存储单元的地址，也就是操作数地址的地址，即EA=(A).</p>
+<p>间接寻址可以是一次间接寻址，还可以是多次间接寻址。</p>
+<p>主存第一位为1时，表示取出的仍不是操作数的地址，即多次间址；当主存第一位为0时，表示取出的是操作数的地址。</p>
+<p>间接寻址的优点是可以扩大寻址范围（优点地址EA的位数大于形式地址A的位数），便于编制程序（用间接寻址可以方便地完成子程序返回）；缺点是指令在执行阶段要多次访问。</p>
+<p>5.寄存器寻址</p>
+<p>在指令字中直接给出操作数所在寄存器编号，即EA=Ri，其操作数在由Ri所指的寄存器内。</p>
+<p>寄存器寻址的优点是指令在执行阶段不访问主存，只访问寄存器，指令字段短且执行速度快，支持向量/矩阵运算；缺点是寄存器价格昂贵，计算机中寄存器个数有限。</p>
+<p>6.寄存器间接寻址</p>
+<p>寄存器间接寻址是指在寄存器Ri中给出的不是一个操作数，而是操作数所在主存单元的地址，即EA=(Ri)</p>
+<p>寄存器间接寻址的特点是与一般间接寻址相比速度更快，但指令的执行阶段需要访问主存（因为操作数在主存中）。</p>
+<p>7.相对寻址</p>
+<p>相对寻址是把程序计数器PC的内容加上指令格式中的形式地址A而形成操作数的有效地址。即EA=（PC）+A，其中A是相对于当前地址的位移量，可正可负，补码表示。</p>
+<p>A的位数决定操作数的寻址范围。</p>
+<p>相对寻址的优点是操作数的地址不是固定的，它随着PC的值得变化而变化，并且与指令地址之间总是相差一个固定值，因此便于程序浮动，相对寻址广泛应用于转移指令。</p>
+<p>对于转移指令JMPA，当CPU从存储器中取出一个字节时，会自动执行（PC）+1-&gt;PC.若转移指令的地址为X,且占2个字节，在取出该指令后PC的值会增2，即（PC）=X+2，这样在执行完该指令后，会指定跳转到X+2+A的地址继续执行。</p>
+<p>8.基址寻址</p>
+<p>基址寻址是将CPU中基址寄存器（BR）的内容加上指令格式中的形式地址A，而形成操作数的有效地址，EA=(BR)+A。其中基址寄存器既可采用专用寄存器，也可以采用通用寄存器。</p>
+<p>基址寄存器是面向操作系统的，其内容由操作系统或管理程序确定。在程序执行过程中，基址寄存器的内容不变（作为基地址），形式地址可变（作为偏移量）。当采用通用寄存器作为基址寄存器时，可由用户决定哪个寄存器作为基址寄存器，但其内容仍由操作系统确定。</p>
+<p>基址寻址的特点是可扩大寻址范围（基址寻址的位数大于形式地址A的位数）；用户不必考虑自己的程序存于主存的哪一空间区域，故有利于多道程序设计，以及可用于编制浮动程序。</p>
+<p>9.变址寻址</p>
+<p>有效地址EA等于指令中的形式地址A与编制寄存器IX的内容相加之和，即EA=(IX)+A，其中IX为变址寄存器（专用），也可用通用寄存器作为变址寄存器。</p>
+<p>变址寄存器是面向用户的，在程序执行过程中，变址寄存器的内容可由用户改变（作为偏移量），形式地址A不变（作为基地址）。</p>
+<p>变址寻址的优点是可扩大寻址范围（变址寄存器的位数大于形式地址A的位数），在数组处理过程中，可设定A为数组的首地址，不断改变变址寄存器IX的内容，便可很容易形成数组中任意数据的地址，特别适合编制循环程序。</p>
+<p>显然，变址寻址与基址寻址的有效地址形成过程及其相似。但从本质上来讲，两者有较大区别。基址寻址主要用于为多道程序或数据分配存储空间，故基址寄存器的内容通常由操作系统和管理程序确定，在程序的执行过程中其值不可变，而指令字中的A是可变的；变址寻址主要用于处理数组问题，在变址寻址中，变址寄存器的内容是由用户设定的，在程序执行过程中，其值可变，而指令字中的A是不可变的。</p>
+<p>10.堆栈寻址</p>
+<p>堆栈是存储器（或专用寄存器组）中一块特定的按“先进后出（LIFO）”原则管理的存储区，该存储区中被读、写单元的地址是用特定的寄存器给出的，该寄存器称为堆栈指针（SP）。堆栈可分为硬堆栈和软堆栈两种。</p>
+<p>寄存器堆栈又称为硬堆栈。寄存器堆栈的成本比较高，不适合做大容量的堆栈；而从主存中划出一段区域来做堆栈是最合算且最常用的方法，这种堆栈称为软堆栈。</p>
+<p>在采用堆栈结构的计算机系统中，大部分指令表面上都表现为为无操作数指令的形式，因为操作数地址都隐含使用了SP。通常情况下，在读写堆栈中的一个单元的前后都伴有自动完成对SP内容的增量或减量操作。</p>
+]]></content>
+  </entry>
+</search>
