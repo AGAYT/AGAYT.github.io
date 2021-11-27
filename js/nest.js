@@ -4,6 +4,7 @@
 	}
 	function j(i) {
 		return document.getElementsByTagName(i)
+		document.get
 	}
 	function l() {
 		var i = j("script"),
@@ -20,6 +21,7 @@
 	function k() {
 		r = u.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
 		n = u.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+		
 	}
 	function b() {
 		e.clearRect(0, 0, r, n);
