@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;agayt.github.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<meta name="description" content="webpack的基本使用以及前端知识补充">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack小插曲">
+<meta property="og:url" content="http://agayt.github.com/p/66004/index.html">
+<meta property="og:site_name" content="阿甘的blog">
+<meta property="og:description" content="webpack的基本使用以及前端知识补充">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210102806191.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220209210426986.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220209210837126.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220209212847687.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220209213915145.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210100733373.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210154130234.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210154253445.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220211111909575.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220211113110398.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220213205124482.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220214205609690.png">
+<meta property="article:published_time" content="2022-01-10T09:57:13.000Z">
+<meta property="article:modified_time" content="2022-02-16T13:26:56.437Z">
+<meta property="article:author" content="AGA">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210102806191.png">
+
+
+<link rel="canonical" href="http://agayt.github.com/p/66004/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;agayt.github.com&#x2F;p&#x2F;66004&#x2F;&quot;,&quot;path&quot;:&quot;p&#x2F;66004&#x2F;&quot;,&quot;title&quot;:&quot;webpack小插曲&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>webpack小插曲 | 阿甘的blog</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+ 
+<script type="text/javascript" src="/js/nest.js"></script>
+
+
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">阿甘的blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">走过路过不要错过</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E5%BC%80%E5%8F%91%EF%BC%8C%EF%BC%88%E5%AF%BC%E5%85%A5%E4%B8%8E%E5%AF%BC%E5%87%BA%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">模块化开发，（导入与导出）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js%E5%AF%BC%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">js导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-config-js%E7%9A%84%E7%BC%96%E5%86%99"><span class="nav-number">3.</span> <span class="nav-text">webpack.config.js的编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css%E5%AF%BC%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">css导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%AF%BC%E5%85%A5"><span class="nav-number">6.</span> <span class="nav-text">图片导入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6%E8%BD%ACES5"><span class="nav-number">7.</span> <span class="nav-text">ES6转ES5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%84%9A%E6%89%8B%E6%9E%B62"><span class="nav-number">8.</span> <span class="nav-text">脚手架2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86"><span class="nav-number">9.</span> <span class="nav-text">异步处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E4%B8%8E%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E8%81%94%E7%B3%BB%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">git远程仓库与本地仓库联系的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-number">10.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-number">10.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-number">11.</span> <span class="nav-text">新项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue3%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE"><span class="nav-number">12.</span> <span class="nav-text">vue3项目配置</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">AGA</p>
+  <div class="site-description" itemprop="description">hiahiahia</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://agayt.github.com/p/66004/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="AGA">
+      <meta itemprop="description" content="hiahiahia">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿甘的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          webpack小插曲
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-10 17:57:13" itemprop="dateCreated datePublished" datetime="2022-01-10T17:57:13+08:00">2022-01-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-02-16 21:26:56" itemprop="dateModified" datetime="2022-02-16T21:26:56+08:00">2022-02-16</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">webpack的基本使用以及前端知识补充</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="模块化开发，（导入与导出）"><a href="#模块化开发，（导入与导出）" class="headerlink" title="模块化开发，（导入与导出）"></a>模块化开发，（导入与导出）</h2><h2 id="js导入"><a href="#js导入" class="headerlink" title="js导入"></a>js导入</h2><p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210102806191.png" alt="image-20220210102806191"></p>
+<p>js刚开始只是为了具备初始逻辑，简单功能。但是到了后面发展过于迅速与复杂，多人开发时有可能会有命名冲突。于是打算使用匿名立即执行函数（闭包）实现，但是这样无法实现函数的复用，于是诞生了模块化，将所有需要导出的变量以及函数保存到一个对象上，这个立即执行函数就只返回这个对象，返回的这个对象就称为一个模块。</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220209210426986.png" alt="image-20220209210426986"></p>
+<p>如今模块化开发直接成为了一种规范，只要按照规范开发</p>
+<p>常见的模块化规范：</p>
+<ul>
+<li>CommonJS、AMD、CMD、ES6的Modules</li>
+</ul>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220209210837126.png" alt="image-20220209210837126"></p>
+<ul>
+<li><p>导出方式一<code>export&#123;a,b,c&#125;</code></p>
+</li>
+<li><p>导出方式二</p>
+<p>  <code>export var a=120</code>,<code>export var b=113</code></p>
+<p>  <code>export function aaa(num1,num2)&#123;return num1+num2&#125;</code></p>
+<p>  <code>export class Person&#123;&#125;</code></p>
+</li>
+</ul>
+<p>自命名<code>export default aaa</code>，一个js文件只能存在一个，使用时<code>import 自己命的名 from &#39;./aaa.js&#39;</code></p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220209212847687.png" alt="image-20220209212847687"></p>
+<p>import * as 对象名 from ‘xxxx.js’ 可以将所有的导出保存到一个对象中，用的时候直接对象. 使用</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220209213915145.png" alt="image-20220209213915145"></p>
+<p><strong><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210100733373.png" alt="image-20220210100733373"></strong></p>
+<p><strong>无论采用什么样的模块化开发规范比如AMD、CMD、CommonJS、ES6，最终采用webpack打包后都能使用，webpack会处理好所有的依赖关系。</strong></p>
+<h2 id="webpack-config-js的编写"><a href="#webpack-config-js的编写" class="headerlink" title="webpack.config.js的编写"></a>webpack.config.js的编写</h2><p>需要先npm init 生成package.json配置文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态获取路径</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"><span class="built_in">module</span>.exports=&#123;</span><br><span class="line"></span><br><span class="line">    <span class="attr">entry</span>:<span class="string">&#x27;./src/main.js&#x27;</span>,</span><br><span class="line">    <span class="attr">output</span>:&#123;</span><br><span class="line">        <span class="attr">path</span>:path.resolve(__dirname,<span class="string">&#x27;dist&#x27;</span>),</span><br><span class="line">        <span class="attr">filename</span>:<span class="string">&#x27;bundle.js&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>package.json,安装本地webpack，区分开发时依赖以及运行时依赖</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;webpackstart&quot;</span>,</span><br><span class="line">  <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;description&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;main&quot;</span>: <span class="string">&quot;index.js&quot;</span>,</span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;test&quot;</span>: <span class="string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;build&quot;</span>: <span class="string">&quot;webpack&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;author&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">  <span class="string">&quot;license&quot;</span>: <span class="string">&quot;ISC&quot;</span>,</span><br><span class="line">  <span class="string">&quot;devDependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;webpack&quot;</span>: <span class="string">&quot;^3.6.0&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="css导入"><a href="#css导入" class="headerlink" title="css导入"></a>css导入</h2><p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210154130234.png" alt="image-20220210154130234"></p>
+<p><strong>安装style-loader（挂载）与css-loader（加载），解析顺序是从右往左</strong>，最后记得在main.js中引入css文件。</p>
+<p>less文件也同理，需要3个loader，额外需要一个less-loader，先下载好loader，在webpack.config.js中配置好test（选择的文件）和use（使用的loader）</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220210154253445.png" alt="image-20220210154253445"></h2><h2 id="图片导入"><a href="#图片导入" class="headerlink" title="图片导入"></a>图片导入</h2><p>在webpack.config.js中配置limit，如果图片大于规定的limit则需要使用file-loader，否则使用url-loader。</p>
+<p>使用图片时要使用打包后的图片，而不是初始图片</p>
+<h2 id="ES6转ES5"><a href="#ES6转ES5" class="headerlink" title="ES6转ES5"></a>ES6转ES5</h2><p>babel-loader</p>
+<p>npm install –save-dev babel-loader@7 babel-core babel-preset-es2015</p>
+<h2 id="脚手架2"><a href="#脚手架2" class="headerlink" title="脚手架2"></a>脚手架2</h2><p>目录结构</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220211111909575.png" alt="image-20220211111909575"></p>
+<p>runtime-compiler与runtime-only区别</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220211113110398.png" alt="image-20220211113110398"></p>
+<h2 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a>异步处理</h2><ul>
+<li><p>自行封装设置flag，判断flag1&amp;&amp;flag2&amp;&amp;….是否为true</p>
+</li>
+<li><p>Promise.all()</p>
+<p>  Promise的构造函数接收一个参数，是函数，并且传入两个参数：resolve，reject，分别表示异步操作执行成功后的回调函数和异步操作执行失败后的回调函数。其实这里用“成功”和“失败”来描述并不准确，按照标准来讲，resolve是将Promise的状态置为fullfiled，reject是将Promise的状态置为rejected。</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.all([</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">//业务代码       </span></span><br><span class="line">    &#125;)，</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">//业务代码       </span></span><br><span class="line">    &#125;)，</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">//业务代码       </span></span><br><span class="line">    &#125;)，</span><br><span class="line">      </span><br><span class="line">]).then(<span class="function"><span class="params">results</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//回调函数,其中results为一个数组，上面函数的返回值按顺序排列</span></span><br><span class="line">    <span class="built_in">console</span>.log(results)</span><br><span class="line">   </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> flag = <span class="literal">true</span></span><br><span class="line"><span class="keyword">const</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="comment">//异步代码,如下</span></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(flag)&#123;</span><br><span class="line">           <span class="comment">//设置状态为成功</span></span><br><span class="line">           resolve(<span class="string">&quot;对象或者字符串&quot;</span>)</span><br><span class="line">       &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">//设置状态为失败	</span></span><br><span class="line">           reject(<span class="string">&quot;对象或者字符串&quot;</span>)</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//调用返回的成功结果或者错误结果</span></span><br><span class="line">p.then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;&#125;).catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220213205124482.png" alt="image-20220213205124482"></p>
+</li>
+<li><p>axios.all()类似与上一种</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">axios.all([axios(),axios(),axios()]).</span><br><span class="line">	then(<span class="function"><span class="params">results</span>=&gt;</span>&#123;</span><br><span class="line">    </span><br><span class="line">	&#125;)</span><br><span class="line"><span class="comment">//spread函数可以将result展开成独立的结果</span></span><br><span class="line">axios.all([axios(),axios(),axios()]).</span><br><span class="line">	then(results.spread(resp1,resp2,resp3)=&gt;&#123;</span><br><span class="line">    	</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="git远程仓库与本地仓库联系的方法"><a href="#git远程仓库与本地仓库联系的方法" class="headerlink" title="git远程仓库与本地仓库联系的方法"></a>git远程仓库与本地仓库联系的方法</h2><h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><ol>
+<li>git clone 远程仓库url</li>
+<li>将所要提交的东西放置到clone下的文件夹</li>
+<li>git add . 提交所有</li>
+<li>git commit -m ‘注解’</li>
+<li>git push 推送到远程仓库</li>
+</ol>
+<p>最好设置好SSH令牌</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><ol>
+<li>创建好远程仓库</li>
+<li>在写好的项目中执行git remote add origin 仓库url</li>
+<li>git push -u origin master</li>
+</ol>
+<h2 id="新项目"><a href="#新项目" class="headerlink" title="新项目"></a>新项目</h2><ol>
+<li><p>划分目录结构    </p>
+<p> <img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220214205609690.png" alt="image-20220214205609690"></p>
+<ul>
+<li><p>assets: css与图片等静态资源</p>
+<ul>
+<li>base.css</li>
+<li>normalize.css</li>
+</ul>
+</li>
+<li><p>common: 公共的常量以及函数</p>
+</li>
+<li><p>component： </p>
+<pre><code>  - 多个项目可以共用的组件
+</code></pre>
+<ul>
+<li>这个项目可以共用的组件</li>
+</ul>
+</li>
+<li><p>network: 网络相关模块axios等</p>
+</li>
+<li><p>router： 前端路由配置</p>
+</li>
+<li><p>store: 未知</p>
+</li>
+<li><p>views: 由组件组成的中大组件，作为视图展示</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="vue3项目配置"><a href="#vue3项目配置" class="headerlink" title="vue3项目配置"></a>vue3项目配置</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="attr">configureWebpack</span>:&#123;</span><br><span class="line">        <span class="attr">resolve</span>: &#123;</span><br><span class="line">            <span class="attr">alias</span>: &#123;</span><br><span class="line">                <span class="comment">//默认@为src目录</span></span><br><span class="line">                <span class="string">&#x27;assets&#x27;</span>: <span class="string">&#x27;@/assets&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;common&#x27;</span>: <span class="string">&#x27;@/common&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;components&#x27;</span>: <span class="string">&#x27;@/components&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;network&#x27;</span>: <span class="string">&#x27;@/network&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;views&#x27;</span>: <span class="string">&#x27;@/views&#x27;</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>.editorconfig    配置项目的字符缩进等，规范代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root = true</span><br><span class="line"></span><br><span class="line">[*]</span><br><span class="line">charset = utf-8</span><br><span class="line">indent_style = space</span><br><span class="line">indent_size = 2</span><br><span class="line">end_of_line = lf</span><br><span class="line">insert_final_newline = true</span><br><span class="line">trim_trailing_whitespace</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/65017/" rel="prev" title="数字验证码识别">
+                  <i class="fa fa-chevron-left"></i> 数字验证码识别
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/ckzpla0ps0005n4g2bf0n6qj5/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AGA</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
