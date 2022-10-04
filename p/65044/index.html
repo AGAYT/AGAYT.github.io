@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;agayt.github.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<meta name="description" content="MySQL索引从简单到入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL索引原理">
+<meta property="og:url" content="http://agayt.github.com/p/65044/index.html">
+<meta property="og:site_name" content="阿甘的blog">
+<meta property="og:description" content="MySQL索引从简单到入门">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913144742009.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220613194102518.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220613195210611.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220613213055470.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220613213804686.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913114416231.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913115920930.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913120100883.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913120205882.png">
+<meta property="og:image" content="c:/Users/86188/AppData/Roaming/Typora/typora-user-images/image-20220913143924508.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913161332003.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913144213851.png">
+<meta property="article:published_time" content="2022-10-03T03:07:12.000Z">
+<meta property="article:modified_time" content="2022-10-04T06:25:29.097Z">
+<meta property="article:author" content="AGA">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913144742009.png">
+
+
+<link rel="canonical" href="http://agayt.github.com/p/65044/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;agayt.github.com&#x2F;p&#x2F;65044&#x2F;&quot;,&quot;path&quot;:&quot;p&#x2F;65044&#x2F;&quot;,&quot;title&quot;:&quot;MySQL索引原理&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>MySQL索引原理 | 阿甘的blog</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+ 
+<script type="text/javascript" src="/js/nest.js"></script>
+
+
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">阿甘的blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">走过路过不要错过</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E7%B4%A2%E5%BC%95"><span class="nav-number">1.</span> <span class="nav-text">MySQL索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">1.2.</span> <span class="nav-text">数据结构的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash%E8%A1%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">Hash表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%A1%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">跳表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">1.2.3.</span> <span class="nav-text">二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-number">1.2.4.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree"><span class="nav-number">1.2.5.</span> <span class="nav-text">B-Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Tree-1"><span class="nav-number">1.2.6.</span> <span class="nav-text">B+Tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.2.7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">1.2.8.</span> <span class="nav-text">慢查询优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA"><span class="nav-number">1.3.</span> <span class="nav-text">如何创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95-%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95-%E7%9A%84%E9%9D%A2%E8%AF%95%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">联合索引(覆盖索引)的面试点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">底层数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E4%B8%8E%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">聚簇索引与非聚簇索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B5%E7%BB%93%E6%9E%84%EF%BC%9A"><span class="nav-number">1.5.2.</span> <span class="nav-text">页结构：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95"><span class="nav-number">1.5.3.</span> <span class="nav-text">主键索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95-%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95"><span class="nav-number">1.5.4.</span> <span class="nav-text">联合索引,普通索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%B7%A6%E5%89%8D%E7%BC%80%E5%8E%9F%E5%88%99"><span class="nav-number">1.5.5.</span> <span class="nav-text">最左前缀原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.5.6.</span> <span class="nav-text">索引失效的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95%E6%8A%80%E5%B7%A7"><span class="nav-number">1.5.7.</span> <span class="nav-text">建立索引技巧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88myisam%E6%9F%A5%E8%AF%A2%E6%AF%94innodb%E5%BF%AB%EF%BC%9F"><span class="nav-number">1.5.8.</span> <span class="nav-text">为什么myisam查询比innodb快？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#explain%E7%94%A8%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">explain用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#type"><span class="nav-number">1.6.1.</span> <span class="nav-text">type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#possible-keys"><span class="nav-number">1.6.2.</span> <span class="nav-text">possible_keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#key"><span class="nav-number">1.6.3.</span> <span class="nav-text">key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rows"><span class="nav-number">1.6.4.</span> <span class="nav-text">rows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Extra"><span class="nav-number">1.6.5.</span> <span class="nav-text">Extra</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E9%94%81"><span class="nav-number">2.</span> <span class="nav-text">MySQL锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E4%BA%8B%E5%8A%A1"><span class="nav-number">3.</span> <span class="nav-text">MySQL事务</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">AGA</p>
+  <div class="site-description" itemprop="description">hiahiahia</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://agayt.github.com/p/65044/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="AGA">
+      <meta itemprop="description" content="hiahiahia">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿甘的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL索引原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-10-03 11:07:12" itemprop="dateCreated datePublished" datetime="2022-10-03T11:07:12+08:00">2022-10-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-10-04 14:25:29" itemprop="dateModified" datetime="2022-10-04T14:25:29+08:00">2022-10-04</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">MySQL索引从简单到入门</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="MySQL索引"><a href="#MySQL索引" class="headerlink" title="MySQL索引"></a>MySQL索引</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 1.什么是索引 index</span></span><br><span class="line"><span class="bullet">-</span> 官方定义：一种帮助mysq1提高查询效率的数据结构。典型的时间换空间</span><br><span class="line"><span class="bullet">-</span> 索引数据结构</span><br><span class="line"><span class="bullet">-</span> 索引的优点：</span><br><span class="line"><span class="code">	1、大大加快数据查询速度</span></span><br><span class="line"><span class="code">- 索引的缺点：</span></span><br><span class="line"><span class="code">	1、维护索引需要耗费数据库资源</span></span><br><span class="line"><span class="code">	2、索引需要占用磁盘空间</span></span><br><span class="line"><span class="code">	3、当对表的数据进行增删改的时候，因为要维护索引，速度会受到影响</span></span><br><span class="line"><span class="code"># 2.索引分类</span></span><br><span class="line"><span class="code">- a.主键索引</span></span><br><span class="line"><span class="code">	设定为主键后数据库会自动建立索引，innodb为聚簇索引，主键索引列值不能为空</span></span><br><span class="line"><span class="code">- b.单值索引(普通索引)</span></span><br><span class="line"><span class="code">	即一个索引只包含单个列，一个表可以有多个单列索引</span></span><br><span class="line"><span class="code">- c.唯一索引</span></span><br><span class="line"><span class="code">	索引列的值必须唯一，但允许有空值(也是与主键索引的唯一区别)</span></span><br><span class="line"><span class="code">- d.复合索引</span></span><br><span class="line"><span class="code">	即一个索引包含多个列</span></span><br><span class="line"><span class="code">-e.Full Text 全文索引（My5.7版本之前 只能用于MYISAM引擎）</span></span><br><span class="line"><span class="code">全文索引类型为FULLTEXT,在定义索引的列上支持值的全文查找，允许在这些索引列中插入重复值和空值。全文索引可以在CHAR、VARCHAR、TEXT类型列上创建。MYSQL只有MYISAM存储引擎支持全文索引</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="数据结构的选择"><a href="#数据结构的选择" class="headerlink" title="数据结构的选择"></a>数据结构的选择</h2><p>核心竞争条件:降低磁盘IO的次数</p>
+<h3 id="Hash表"><a href="#Hash表" class="headerlink" title="Hash表"></a>Hash表</h3><ul>
+<li>不支持范围查询,模糊查询,无法建立多列索引，范围查询时间复杂度会退化 O(n);</li>
+<li>mysql 5.5之后 默认使用的InnoDB引擎 ，而InnoDB 不支持哈希！</li>
+</ul>
+<h3 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h3><ul>
+<li>2kw的数据量需要2的24次方也就是24层，而且数据时放在不同的数据页的最多需要24次磁盘IO，比B+树多。而在redis中数据都是放在内存中，不存在磁盘IO问题。因此Redis的ZSet使用跳表做底层数据结构</li>
+</ul>
+<h3 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h3><ul>
+<li>当索引列的大小是自增时，二叉树会退化成链表。这样相当于全表扫描，磁盘IO次数较多，原因是二叉查找树变得不平衡了，因此我们可以进一步将二叉搜索树优化为平衡二叉树(红黑树)，即要求每个节点的左右子树的高度差不能超过 1。</li>
+</ul>
+<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><ul>
+<li><p>当数据量较大时,树的深度较大，所需IO也较多</p>
+</li>
+<li><p>为了保证这棵树是一颗平衡树，在进行数据插入的时候，需要进行N多次的左旋和右旋操作，因此插入的性能比较低，但是查询的时候性能比较高，损失了插入性能满足了查询性能；</p>
+</li>
+</ul>
+<p>红黑树与AVL树的区别：红黑树是AVL树的一个变种，它也是在二叉查找树的基础上添加平衡条件，只是它对平衡条件的描述不像AVl树那样直接，而是转化成对节点颜色规则的描述。</p>
+<p>颜色规则： </p>
+<ol>
+<li>对于任意节点，要么是红色，要么是黑色；</li>
+<li>根节点是黑色的；</li>
+<li>如果一个节点是红色的，那么它的子节点必须是黑色的（即不能有两个连续的红色节点）；</li>
+<li>任意节点到其下面各个空结点（后面称为nil节点，并约定其颜色为黑色）的路径上都包含相同数目的黑色节点（称为黑高）</li>
+</ol>
+<p>通过对任何一条从根到空节点的路径上各个结点的颜色进行约束，红黑树可以确保没有一条路径会比其他路径长出2倍，因而红黑树是近似平衡的。</p>
+<h3 id="B-Tree"><a href="#B-Tree" class="headerlink" title="B-Tree"></a>B-Tree</h3><ul>
+<li>非叶子节点存放数据导致页存储数据量减少，使得树的高度增加，IO次数变多</li>
+<li>效率不稳定，越靠近根部元素查询越快</li>
+</ul>
+<h3 id="B-Tree-1"><a href="#B-Tree-1" class="headerlink" title="B+Tree"></a>B+Tree</h3><ul>
+<li>效率稳定</li>
+<li>B+树的叶子节点包含所有关键字，并以有序的链表结构存储，这样可很好提高增删效率，基于范围查询更好。</li>
+</ul>
+<p>插入数据时可能会页分裂，同时需要维护各个索引页</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>索引的选择无非是哈希，跳表，树。哈希在范围查询性能达到了O(N)较低，跳表的层数较高IO次数过多。树分为二叉搜索树,二叉平衡树,B-Tree,B+Tree,MySQL在读取数据时以页为逻辑单位,默认是16KB,而二叉搜索树与二叉平衡树每个节点只能存储一条数据，每次加载需要一层层加载浪费资源。因此需要一页存放多条数据，而B-Tree与B+Tree一个节点可以存储多条数据，使得MySQL可以一次加载多条数据放到内存比对。但是B-Tree的非叶子结点页存储了数据体积较大，一次加载而言，B+Tree能够加载更多数据。使得树的高度较高IO次数也多，因此选择B+Tree做索引</p>
+<h3 id="慢查询优化"><a href="#慢查询优化" class="headerlink" title="慢查询优化"></a>慢查询优化</h3><p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913144742009.png" alt="image-20220913144742009"></p>
+<h2 id="如何创建"><a href="#如何创建" class="headerlink" title="如何创建"></a>如何创建</h2><blockquote>
+<p>可以通过<code>show index from table_name</code>查看索引</p>
+</blockquote>
+<p>主键索引:创建表时自动生成</p>
+<p>单值索引：</p>
+<ul>
+<li>建表时:在建表语句的最后添加<code>key(column_name)</code></li>
+<li>建表后:<code>create index indexname on table_name(column_name)</code></li>
+</ul>
+<p>唯一索引：</p>
+<ul>
+<li>建表时:在建表语句最后添加<code>unique(column_name)</code></li>
+<li>建表后:<code>create unique indexname on table_name(column_name)</code></li>
+</ul>
+<p>复合索引：</p>
+<ul>
+<li>建表时:在建表语句最后添加<code>unique(column_name1,column_name2...)</code></li>
+<li>建表后:<code>create index indexname on table_name(column_name1,column_name2...)</code></li>
+</ul>
+<h2 id="联合索引-覆盖索引-的面试点"><a href="#联合索引-覆盖索引-的面试点" class="headerlink" title="联合索引(覆盖索引)的面试点"></a>联合索引(覆盖索引)的面试点</h2><p>假设有name,age,bir 3个字段，并且在name与age上建立了复合索引，那么以下情况能否利用索引</p>
+<blockquote>
+<p>name bir age     可以</p>
+<p>name age bir     可以</p>
+<p>age bir          不可以</p>
+<p>bir age name     可以</p>
+<p>name bir         name用到，bir没用到</p>
+</blockquote>
+<p>两条原则：</p>
+<ul>
+<li>最左前缀原则</li>
+<li>mysql引擎为了更好地利用索引，在查询过程中会动态调整查询到字段顺序以便利用索引</li>
+</ul>
+<h2 id="底层数据结构"><a href="#底层数据结构" class="headerlink" title="底层数据结构"></a>底层数据结构</h2><p>B+树，一般企业开发3层封顶，3层已经可以存上亿条数据</p>
+<p>假设一条数据有一个varchar(20),2个int那么</p>
+<p>每个节点默认存储16kB</p>
+<p>可以存储<code>1024*16*1024*16*1024*16/(4+4+8+20)</code>int为4个字节，varchar为20个字节，8为指针大小</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220613194102518.png" alt="image-20220613194102518"></p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220613195210611.png" alt="image-20220613195210611"></p>
+<p>mysql索引面试相关</p>
+<ul>
+<li>数据存入mysql时会根据数据去排序，然后通过一个个指针将数据连接起来(因此不用uuid作主键，过于离散，无法排序)</li>
+<li>B+ 树中各个页之间是通过双向链表连接的,叶子节点中的数据是通过双向链表连接的”</li>
+<li>然后在链表的基础上构建B+树的数据结构，把多个数据放到一页页中，每一页默认是16kB</li>
+<li>3层的数据结构存储将近8亿，所以一般项目2层已经能存很多数据了</li>
+<li>同时mysql会将最顶层的目录常驻内存，减少io次数</li>
+<li>两层的数据最多1次io，根目录常驻内存</li>
+</ul>
+<h3 id="聚簇索引与非聚簇索引"><a href="#聚簇索引与非聚簇索引" class="headerlink" title="聚簇索引与非聚簇索引"></a>聚簇索引与非聚簇索引</h3><ul>
+<li><p>InnoDB的聚簇索引就是主键索引</p>
+</li>
+<li><p>MyISAM没有聚簇索引，因为他的记录行与索引行是分开存储的。他的主键索引还是非聚簇索引</p>
+</li>
+</ul>
+<blockquote>
+<p>聚簇索引的顺序就是数据的物理存储顺序，非聚簇索引的解释是:索引顺序与数据物理排列顺序无关。正是因为如此，所以一个表最多只能有一个聚簇索引,因为物理存储只能有一个顺序。正因为一个表最多只能有一个聚簇索引，所以它显得更为珍贵，一个表设置什么为聚簇索引对性能很关键。我们可以这么理解聚簇索引：索引的叶节点就是数据节点。而非聚簇索引的叶节点仍然是索引节点，只不过有一个指针指向对应的数据块。</p>
+</blockquote>
+<p>MySQL支持两种存储引擎分别是InnoDB和MyISAM，默认使用InnoDB存储引擎，在创建数据库表的时候，InnoDB</p>
+<p>（1）首先会查看数据表中有没有主键，有的话就使用主键创建一个索引，这个主键索引就是聚簇索引</p>
+<p>（2）没有主键会寻找unique类型的字段创建主键索引，这个主键索引还是聚簇索引；</p>
+<p>（1）（2）都没有就隐式的创建rowID，还是聚簇索引。总之，InnoDB引擎创建的主键索引就是聚簇索引。聚簇索引包含主键id，数据库对应行数据和指针并将这些数据存储在B+Tree的叶子结点上。其余非主键索引全部都是辅助索引（非聚簇索引），对于InnoDB存储引擎创建的辅助索引（非聚簇索引），索引内容只包含当前字段的内容与主键id，通过查询主键id进行数据的二次查找。</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220613213055470.png" alt="image-20220613213055470"><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220613213804686.png" alt="image-20220613213804686"></p>
+<h3 id="页结构："><a href="#页结构：" class="headerlink" title="页结构："></a>页结构：</h3><blockquote>
+<p>MySQL以页作为存储，每一页有页目录作为索引，页目录存储了主键值以及一个指向实际数据的指针。同时插入数据时通过二分计算主键插入的位置(排好序)。每一页大小为16KB，5.7以后增加了对32KB与64KB的支持，默认还是16KB，最大行大小约为8000字节。</p>
+</blockquote>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913114416231.png" alt="image-20220913114416231"></p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913115920930.png" alt="image-20220913115920930"></p>
+<h3 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h3><p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913120100883.png" alt="image-20220913120100883"></p>
+<h3 id="联合索引-普通索引"><a href="#联合索引-普通索引" class="headerlink" title="联合索引,普通索引"></a>联合索引,普通索引</h3><p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913120205882.png" alt="image-20220913120205882"></p>
+<p>联合索引最下面不是整个数据项(太浪费空间),而是对应数据项的主键值,因此查询到结果后还需要回表查询。如果所需的数据包含在联合索引中就不需要回表，否则要回表再走一次主键索引获取到想要的数据。</p>
+<p>从左往右逐个比较类似于数字比较大小(依次比较百位,十位,个位)只要大了就整体大，因此有最左前缀匹配原则,</p>
+<p>联合索引在查找时都要符合最左前缀原则，在通过这两个索引的B+树查询到主键后，如果所需的数据就是普通索引或者包含在联合索引中就不需要回表，否则要回表再走一次主键索引获取到想要的数据</p>
+<blockquote>
+<p>如:有4个字段id,name,age,nation.首先主键索引(id)是一定存在的，然后再建立一个联合索引(name,age)执行下列语句</p>
+<p>explain select id from student  where id = 15              – 走主键索引</p>
+<p>explain select name,age from student where name = ‘aa’      – 走联合索引</p>
+<p>explain select nation,name,age from student where name=’aa’  –走联合索引但是需要回表查询nation</p>
+</blockquote>
+<p>如果id是字符型，那么前缀匹配用的是索引，中坠和后缀用的是全表扫描。</p>
+<h3 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h3><p><strong>索引字段中的第一个字段，也就是最左边的字段。只要有这个字段在，该sql已经就能走索引。</strong></p>
+<h3 id="索引失效的原因"><a href="#索引失效的原因" class="headerlink" title="索引失效的原因"></a>索引失效的原因</h3><p><img src="C:\Users\86188\AppData\Roaming\Typora\typora-user-images\image-20220913143924508.png" alt="image-20220913143924508"></p>
+<p>1，使用or关键字（但是并不是所有带or的查询都会失效，如果有两个字段，两个字段都有索引就不会失效，会走两个索引）</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913161332003.png" alt="image-20220913161332003"></p>
+<h3 id="建立索引技巧"><a href="#建立索引技巧" class="headerlink" title="建立索引技巧"></a>建立索引技巧</h3><ol>
+<li>在查询的较多的列上建立覆盖索引,覆盖要查询的字段避免回表查询</li>
+<li>可以截取字段的前几个字符作为索引，</li>
+<li>避免在重复率较高的字段上建立索引   重复率=不同的值数/总字段数</li>
+<li>更新频繁的字段上不要创建索引</li>
+<li>尽量拓展索引不要添加索引,维护起来效率低 </li>
+<li></li>
+</ol>
+<h3 id="为什么myisam查询比innodb快？"><a href="#为什么myisam查询比innodb快？" class="headerlink" title="为什么myisam查询比innodb快？"></a>为什么myisam查询比innodb快？</h3><p>主要原因有三点：</p>
+<blockquote>
+<ol>
+<li><p>查询的时候，由于innodb支持事务，所以会有mvvc的一个比较。这个过程会损耗性能。</p>
+</li>
+<li><p>查询的时候，如果走了索引，而索引又不是主键索引，此时，由于innodb是聚簇索引，会有一个回表的过程，即：先去非聚簇索引树（非主键索引树）中查询数据，找到数据对应的key之后，再通过key回表到聚簇索引树，最后找到需要的数据。而myisam是非聚集索引，而且叶子节点存储的是磁盘地址，所以，查询的时候查到的最后结果不是聚簇索引树的key，而是会直接去查询磁盘。</p>
+</li>
+<li><p>锁的一个损耗，innodb锁支持行锁，在检查锁的时候不仅检查表锁，还要看行锁。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="explain用法"><a href="#explain用法" class="headerlink" title="explain用法"></a>explain用法</h2><p>重点关注</p>
+<h3 id="type"><a href="#type" class="headerlink" title="type"></a>type</h3><p>  此列表示关联类型或访问类型。也就是MySQL决定如何查找表中的行。依次从最优到最差分别为：system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; all。</p>
+<ul>
+<li><p>NULL：MySQL能在优化阶段分解查询语句，在执行阶段不用再去访问表或者索引。</p>
+</li>
+<li><p>system、const：MySQL对查询的某部分进行优化并把其转化成一个常量（可以通过show warnings命令查看结果）。system是const的一个特例，表示表里只有一条元组匹配时为system。</p>
+</li>
+<li><p> eq_ref：主键或唯一键索引被连接使用，最多只会返回一条符合条件的记录。简单的select查询不会出现这种type。</p>
+</li>
+<li><p> ref：相比eq_ref，不使用唯一索引，而是使用普通索引或者唯一索引的部分前缀，索引和某个值比较，会找到多个符合条件的行。</p>
+</li>
+<li><p>  range：通常出现在范围查询中，比如in、between、大于、小于等。使用索引来检索给定范围的行。</p>
+</li>
+<li><p> index：扫描全索引拿到结果，一般是扫描某个二级索引，二级索引一般比较少，所以通常比ALL快一点。</p>
+</li>
+<li><p> ALL：全表扫描，扫描聚簇索引的所有叶子节点。</p>
+</li>
+</ul>
+<p>所以说如果type为all或者index，都应对其进行优化。甚至我们可以将其理解相当于索引无效。</p>
+<h3 id="possible-keys"><a href="#possible-keys" class="headerlink" title="possible_keys"></a>possible_keys</h3><p>可能走的索引，如果为空说明没有索引可以走，可以添加索引提高查询效率</p>
+<h3 id="key"><a href="#key" class="headerlink" title="key"></a>key</h3><p>实际使用的索引</p>
+<h3 id="rows"><a href="#rows" class="headerlink" title="rows"></a>rows</h3><p> 此列是MySQL在查询中估计要读取的行数。注意这里不是结果集的行数</p>
+<h3 id="Extra"><a href="#Extra" class="headerlink" title="Extra"></a>Extra</h3><p>此列是一些额外信息。常见的重要值如下：</p>
+<ol>
+<li><p>Using index：使用覆盖索引（如果select后面查询的字段都可以从这个索引的树中获取，不需要通过辅助索引树找到主键，再通过主键去主键索引树里获取其它字段值，这种情况一般可以说是用到了覆盖索引）。</p>
+</li>
+<li><p>Using where：使用 where 语句来处理结果，并且查询的列未被索引覆盖。</p>
+</li>
+<li><p>Using index condition：查询的列不完全被索引覆盖，where条件中是一个查询的范围。</p>
+</li>
+<li><p>Using temporary：MySQL需要创建一张临时表来处理查询。出现这种情况一般是要进行优化的。</p>
+</li>
+<li><p>Using filesort：将使用外部排序而不是索引排序，数据较小时从内存排序，否则需要在磁盘完成排序。</p>
+</li>
+<li><p>Select tables optimized away：使用某些聚合函数（比如 max、min）来访问存在索引的某个字段时。</p>
+</li>
+</ol>
+<p>参考<code>https://blog.csdn.net/fsdfkjai/article/details/121770629</code></p>
+<h1 id="MySQL锁"><a href="#MySQL锁" class="headerlink" title="MySQL锁"></a>MySQL锁</h1><p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220913144213851.png" alt="image-20220913144213851"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from student lock in share mode  -- 共享锁(读锁)</span><br><span class="line">select * from student for update		-- 排他锁(写锁)</span><br><span class="line">-- update,delete,insert 会自动增加排它锁</span><br></pre></td></tr></table></figure>
+
+<p>读与读锁是有区别的普通的select是不会加锁的，只是普通的读取数据</p>
+<h1 id="MySQL事务"><a href="#MySQL事务" class="headerlink" title="MySQL事务"></a>MySQL事务</h1><p>4个隔离级别(效率由高到低)</p>
+<p>读已提交</p>
+<p>读未提交</p>
+<p>可重复读</p>
+<p>串行</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/65018/" rel="prev" title="线程池源码">
+                  <i class="fa fa-chevron-left"></i> 线程池源码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/cl8ttkiho00070sg2bnc72oai/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AGA</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

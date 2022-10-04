@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;agayt.github.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Mist&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.json&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<meta name="description" content="java常用集合类包括(JUC)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA集合类">
+<meta property="og:url" content="http://agayt.github.com/p/65046/index.html">
+<meta property="og:site_name" content="阿甘的blog">
+<meta property="og:description" content="java常用集合类包括(JUC)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220920101246836.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220922193953676.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220923114713055.png">
+<meta property="og:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220923193520403.png">
+<meta property="article:published_time" content="2021-10-25T02:53:10.000Z">
+<meta property="article:modified_time" content="2022-10-04T06:28:02.854Z">
+<meta property="article:author" content="AGA">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220920101246836.png">
+
+
+<link rel="canonical" href="http://agayt.github.com/p/65046/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;agayt.github.com&#x2F;p&#x2F;65046&#x2F;&quot;,&quot;path&quot;:&quot;p&#x2F;65046&#x2F;&quot;,&quot;title&quot;:&quot;JAVA集合类&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>JAVA集合类 | 阿甘的blog</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+ 
+<script type="text/javascript" src="/js/nest.js"></script>
+
+
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">阿甘的blog</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">走过路过不要错过</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-number">1.</span> <span class="nav-text">HashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E9%87%8F%E5%BF%85%E9%A1%BB%E6%98%AF2%E7%9A%84%E6%95%B4%E6%95%B0%E5%B9%82"><span class="nav-number">1.1.</span> <span class="nav-text">容量必须是2的整数幂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java1-7%E6%8F%92%E5%85%A5%E9%93%BE%E8%A1%A8%E6%98%AF%E5%A4%B4%E6%8F%92-java1-8%E5%90%8E%E6%98%AF%E5%B0%BE%E6%8F%92"><span class="nav-number">1.2.</span> <span class="nav-text">java1.7插入链表是头插,java1.8后是尾插</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99equals%E6%96%B9%E6%B3%95%E4%B9%9F%E8%A6%81%E9%87%8D%E5%86%99hashCode%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">重写equals方法也要重写hashCode方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E8%B7%9D%E7%A6%BB%E4%B8%80%E4%B8%AA%E6%95%B0%E6%9C%80%E8%BF%91%E7%9A%842%E7%9A%84%E6%95%B4%E6%95%B0%E5%B9%82"><span class="nav-number">1.4.</span> <span class="nav-text">获取距离一个数最近的2的整数幂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resize%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">resize方法:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#put%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">put方法:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get%E6%96%B9%E6%B3%95"><span class="nav-number">1.7.</span> <span class="nav-text">get方法:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E%E9%93%BE%E8%A1%A8%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.8.</span> <span class="nav-text">红黑树与链表的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B0%E5%8A%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.9.</span> <span class="nav-text">扰动函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList"><span class="nav-number">2.</span> <span class="nav-text">ArrayList</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fast-Fail"><span class="nav-number">2.1.</span> <span class="nav-text">Fast-Fail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CopyOnWrite"><span class="nav-number">2.2.</span> <span class="nav-text">CopyOnWrite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List%E4%B8%8ESet%E5%8C%BA%E5%88%AB"><span class="nav-number">2.3.</span> <span class="nav-text">List与Set区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashSet%E4%B8%8EHashMap"><span class="nav-number">2.4.</span> <span class="nav-text">HashSet与HashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap%E4%B8%8EHashTable"><span class="nav-number">2.5.</span> <span class="nav-text">HashMap与HashTable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashSet%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8E%BB%E9%87%8D"><span class="nav-number">2.6.</span> <span class="nav-text">HashSet如何实现去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94"><span class="nav-number">2.7.</span> <span class="nav-text">遍历方式对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ArrayList%E6%89%A9%E5%AE%B9"><span class="nav-number">2.8.</span> <span class="nav-text">ArrayList扩容</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PriorityQueue"><span class="nav-number">3.</span> <span class="nav-text">PriorityQueue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0add"><span class="nav-number">3.2.1.</span> <span class="nav-text">增加add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%A0%86%E9%A1%B6poll"><span class="nav-number">3.2.2.</span> <span class="nav-text">删除堆顶poll</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">构造方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TreeSet"><span class="nav-number">4.</span> <span class="nav-text">TreeSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Integer"><span class="nav-number">5.</span> <span class="nav-text">Integer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">6.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object"><span class="nav-number">7.</span> <span class="nav-text">Object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection"><span class="nav-number">8.</span> <span class="nav-text">Collection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collections"><span class="nav-number">9.</span> <span class="nav-text">Collections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#juc"><span class="nav-number">10.</span> <span class="nav-text">juc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97"><span class="nav-number">10.1.</span> <span class="nav-text">阻塞队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%9F%E7%90%86"><span class="nav-number">10.2.</span> <span class="nav-text">线程池原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedBlockingQueue"><span class="nav-number">10.3.</span> <span class="nav-text">LinkedBlockingQueue</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">11.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E7%95%8C%E9%98%9F%E5%88%97%E6%97%A0%E7%95%8C%E9%98%9F%E5%88%97"><span class="nav-number">11.1.</span> <span class="nav-text">有界队列无界队列</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">AGA</p>
+  <div class="site-description" itemprop="description">hiahiahia</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://agayt.github.com/p/65046/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="AGA">
+      <meta itemprop="description" content="hiahiahia">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿甘的blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JAVA集合类
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-25 10:53:10" itemprop="dateCreated datePublished" datetime="2021-10-25T10:53:10+08:00">2021-10-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-10-04 14:28:02" itemprop="dateModified" datetime="2022-10-04T14:28:02+08:00">2022-10-04</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">java常用集合类包括(JUC)</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>由于Integer最大值为2^31-1,索引最大可以取到2^30次方</p>
+<h3 id="容量必须是2的整数幂"><a href="#容量必须是2的整数幂" class="headerlink" title="容量必须是2的整数幂"></a>容量必须是2的整数幂</h3><ol>
+<li><p>通过hashcode计算位置时可以通过位运算逻辑与 hashcode&amp;(hashmap的容量-1)也就是全为1的状态比如41 —- hashcode为00101001  与容量32 也就是00011111 作与运算得到00001001也就是8可以与%得到同样的效果，而位运算的效率比%高很多</p>
+</li>
+<li><p>扩容时，扩容大小也是2的倍数可以将产生hash碰撞的元素,完美的转移到新的table中去<br>仅只用了O（n）的时间复杂度，就将数据完成了转移</p>
+</li>
+</ol>
+<h3 id="java1-7插入链表是头插-java1-8后是尾插"><a href="#java1-7插入链表是头插-java1-8后是尾插" class="headerlink" title="java1.7插入链表是头插,java1.8后是尾插"></a>java1.7插入链表是头插,java1.8后是尾插</h3><p>原因:多线程环境下,在同时扩容时由于头插会使得顺序翻转,导致产生环形链表产生造成死循环。<br>使用头插会改变链表的上的顺序，但是如果使用尾插，在扩容时会保持链表元素原本的顺序，就不会出现链表成环的问题了。</p>
+<h3 id="重写equals方法也要重写hashCode方法"><a href="#重写equals方法也要重写hashCode方法" class="headerlink" title="重写equals方法也要重写hashCode方法"></a>重写equals方法也要重写hashCode方法</h3><p>hashmap中value的查找是通过 key 的 hashcode 来查找，所以对自己的对象必须重写 hashcode 方法通过  hashcode 找到对象地址后会用 equals 比较你传入的对象和 hashmap 中的 key 对象是否相同,因此还要重写 equals。保证相同的对象返回相同的hash值，不同的对象返回不同的hash值。</p>
+<h3 id="获取距离一个数最近的2的整数幂"><a href="#获取距离一个数最近的2的整数幂" class="headerlink" title="获取距离一个数最近的2的整数幂"></a>获取距离一个数最近的2的整数幂</h3><p>方法1:从1开始不断乘2直至大于目标<br>方法2:通过位运算不断右移并进行逻辑右移(HashMap)并且进行或运算直到把后面全部变成1</p>
+<p>tableSizeFor方法:通过位运算返回一个最小的大于入参的二次幂</p>
+<p>方法3:通过Integer.numberOfLeadingZeros计算目标数有几个前置0,把后面全部赋值为1</p>
+<h3 id="resize方法"><a href="#resize方法" class="headerlink" title="resize方法:"></a>resize方法:</h3><p>1.判断是否第一次初始化,如果不是再判断长度有没有达到最大值,达到了就直接返回不扩容<br>否则通过右移一位扩大一倍同时计算性阈值。生成新的Node数组然后进行旧元素的迁移<br>2.如果是第一次初始化且调用了默认的构造函数,没有给定hashmap的长度大小则把默认值赋值给<br>容量以及阈值,生成新的Node数组然后返回，不需要迁移旧元素。<br>3.如果是第一次初始化且给定了hashmap的长度,则赋值长度与阈值同时生成新的Node数组并返回<br>同上。</p>
+<p>旧元素迁移:扩容容量通过左移变为原来的两倍,然后通过遍历所有节点,分为3种情况,分别是①单独的节点②红黑树③链表<br>  第一种情况直接将原来节点的hash与新数组长度-1逻辑与运算得到坐标<br>  第二种情况将节点通过split方法操作红黑树<br>  第三种情况链表,此时由于哈希冲突而放在一起的Node节点可能在新的HashMap中有的位置,<br>  因此需要遍历链表上的所有元素,分别取hash值与旧容量做与运算,如果得到0表示位置不用变,<br>  如果是1就放到新的位置(原来的位置坐标+旧hashmap容量)</p>
+<p>  红黑树迁移步骤:<br>  注意TreeNode有5个指针,分别是左右子树,parent,next,prev也就是说既是树又是链表两层关系,方便红黑树与链表的相互转换<br>  如果当前节点属于TreeNode则强转并调用split方法,split方法中类似于链表的扩容,先把判断每一个树的节点,确实节点是放在<br>  新链表还是旧链表,遍历完成后判断旧链表数量是否小于6,小于6需要将该树转为链表(也就是把TreeNode节点通过replacementNode转化为Node节点)<br>  如果大于6说明还是保持树,先看看新链表有没有数据,没有就不用转保持原样,否则还是要转换。新链表操作同旧链表</p>
+<p>  链表迁移步骤:<br>  因为容量扩大了一倍所以,链表新元素的位置可能不变,也有可能在下一段同样的位置,也就是扩容段同样的位置<br>  是否变取决于hash值&amp;旧容量的值为1还是0,0不变1变<br>  例如:原来hash为10(1010),hashmap容量为16(10000),原来的位置10 &amp; (16-1) 也就是 1010 &amp; 1111 = 1010<br>  扩容后:hash不变,hashmap容量为32(100000),扩容后位置为10 &amp; (32-1) 也就是 1010 &amp; 11111 = 01010 首位是0不用变化,保持原位<br>  在</p>
+<p>  假设与10同链表的另一个节点hash为26(11010),原来的位置为 11010 &amp; (16-1) 也就是11010 &amp; 1111 = 1010<br>  扩容后:hash不变,hashmap容量为32(100000),扩容后位置为26 &amp; (32-1) 也就是 11010 &amp; 11111 = 11010<br>  首位是1放到下一个位置也就是(原来的位置坐标+旧hashmap容量)</p>
+<p>  可以看出位置是否变化取决于最高位是1还是0,因此在hashmap中,直接用hash &amp; 旧容量也就是10 &amp; 16 与26 &amp; 16<br>  也就是01010 &amp; 10000 = 0与11010 &amp; 10000 = 1,前者不变，后者移动</p>
+<p>  可以理解为做了两次哈希先找到在旧map的位置,再做一次哈希,长度只有2,要么在前面要么在后面,取决于最高位。这也是hashmap的容量<br>  必须为2的n次幂的好处,方便元素的迁移</p>
+<p>  ①设置4个节点,新旧链表的头尾节点<br>  ②通过判断hash &amp; oldCap是否为0,0则放到就链表,1则放到新链表<br>  ③把所有的元素放完后有了新旧两条链表,判断是否为空,旧链表非空则放到原来的位置,新链表非空则放到(原来位置+旧hashmap容量)的位置</p>
+<h3 id="put方法"><a href="#put方法" class="headerlink" title="put方法:"></a>put方法:</h3><ol>
+<li>第一次put由于数组还没有初始化需要初始化扩容</li>
+<li>如果数组已经初始化了,则通过&amp;运算计算下标,判断改下标元素是否为空,为空则直接放上去</li>
+<li>不为空则分3种情况:<br> ①该位置节点的hash相等并且key也相等则直接更新元素的value<br> ②该位置节点属于TreeNode,通过红黑树内部类方法把他放上去<br> ③该位置节点下有链表,通过for遍历比较链表上每一个节点的key是否相同,相同则什么都不做(循环完成后会更新),不相同则继续<br> 知道循环了8次后,此时要转变为红黑树,这时树上有9个节点而不是8个</li>
+<li>如果有key重复的把找到的重复key覆盖更新value</li>
+<li>增加modCount修改次数用于控制并发,防止多线程修改导致数据不一致,当expectedModCount与modCount不一样时会抛出ConcurrentModificationException()异常</li>
+<li>判断当前元素数量是否大于阈值,如果是就进行扩容</li>
+</ol>
+<p>putIfAbsent:当没有这个key才放进去,否则不操作</p>
+<h3 id="get方法"><a href="#get方法" class="headerlink" title="get方法:"></a>get方法:</h3><p>1.判断数组是否为空然后通过与数组长度-1作与运算获得key的下标得到数组对应位置的元素<br>2.首先判断该元素的key是否与入参的key相同,相同则返回<br>3.不相同则判断是否有next,然后如果有且是红黑树则通过红黑树取元素,否则通过链表遍历获取元素</p>
+<h3 id="红黑树与链表的转换"><a href="#红黑树与链表的转换" class="headerlink" title="红黑树与链表的转换"></a>红黑树与链表的转换</h3><p>数组长度当大于64且链表长度大于8时会转变红黑树,小于64且小于6转变为链表</p>
+<h3 id="扰动函数"><a href="#扰动函数" class="headerlink" title="扰动函数"></a>扰动函数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>key.hashcode()方法返回一个int(4字节,32位)。</p>
+<p>先将hashcode右移16位剩下高位,高位再与hashcode做异或运算,使得高低位都参与hashcode的计算,让计算出来的hash值更加不确定还减少hash碰撞</p>
+<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><h3 id="Fast-Fail"><a href="#Fast-Fail" class="headerlink" title="Fast-Fail"></a>Fast-Fail</h3><p>ArrayList,Vector等拥有modCount变量的集合类,如果通过迭代器遍历集合过程中调用集合类的remove,add或者其他会修改modCount的方法会抛出``ConcurrentModificationException`,modCount用于记录集合的修改次数,在获得迭代器对象时会自动把modCount赋值给expectedModCount,修改集合后modCount会发生变化,在下一次获得next时会自动比较expectedModCount与modCount是否相等，不相等则直接抛出异常。这是集合类fast-fail的体现。是为了防止在通过迭代器迭代时其他线程去修改集合引发错误。虽然错误不一定发生。</p>
+<p>“快速失败”也就是fail-fast，它是<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/javase">Java</a>集合的一种错误检测机制。当多个线程对集合进行结构上的改变的操作时，有可能会产生fail-fast机制。记住是有可能，而不是一定。例如：假设存在两个线程（线程1、线程2），线程1通过Iterator在遍历集合A中的元素，在某个时候线程2修改了集合A的结构（是结构上面的修改，而不是简单的修改集合元素的内容），那么这个时候程序就会抛出 ConcurrentModificationException 异常，从而产生fail-fast机制。</p>
+<pre><code>换成Vector还是会出现这种错误.原因在于，虽然Vector的方法采用了synchronized进行了同步，但是实际上通过Iterator访问的情况下，每个线程里面返回的是不同的iterator，也即是说expectedModCount是每个线程私有。假若此时有2个线程，线程1在进行遍历，线程2在进行修改，那么很有可能导致线程2修改后导致Vector中的modCount自增了，线程2的expectedModCount也自增了，但是线程1的expectedModCount没有自增，此时线程1遍历时就会出现expectedModCount不等于modCount的情况了。
+</code></pre>
+<p>解决方案:</p>
+<p>单线程:使用迭代器的remove方法而不是集合类的remove方法</p>
+<p>多线程:1. 在使用iterator迭代的时候使用synchronized或者Lock进行同步；</p>
+<p>​            2.使用并发容器<code>CopyOnWriteArrayList</code>代替ArrayList和Vector。</p>
+<p>​            3.通过<code>Collections.synchronizedList(integers);</code>并在使用时上</p>
+<p>锁，其实这个方法返回值为Collections的静态内部类SynchronizedList,里面所有的方法都通过synchronized锁住类对象，然后代理原来List的方法,但是个别方法没有添加synchronize比如获取迭代器时，因此在使用时如果获取迭代器需要添加synchronize关键字保证线程安全。这么看来这种方法效率也不高。最后使用杀手锏</p>
+<p>​            4. 通过juc的阻塞队列与非阻塞队列</p>
+<h3 id="CopyOnWrite"><a href="#CopyOnWrite" class="headerlink" title="CopyOnWrite"></a>CopyOnWrite</h3><p>（简称COW），是计算机程序设计领域中的一种优化策略，也是一种思想–即写入时复制思想。</p>
+<p>那么，什么是写入时复制思想呢？就是当有多个调用者同时去请求一个资源时(可以是内存中的一个数据)，当其中一个调用者要对资源进行修改，系统会copy一个副本给该调用者，让其进行修改；而其他调用者所拥有资源并不会由于该调用者对资源的改动而发生改变。这就是写入时复制思想；</p>
+<p>以 add 方法为例，每次 add 时，都会用 Arrays.copyOf 创建一个新数组，频繁 add 时内存的申请释放消耗会很大。所以CopyOnWriteArrayList** 并发容器用于读多写少的并发场景。比如<strong>白名单，黑名单，商品类目的访问和更新场景</strong></p>
+<h3 id="List与Set区别"><a href="#List与Set区别" class="headerlink" title="List与Set区别"></a>List与Set区别</h3><p>List、Set都继承自Collection接口；List的特点：元素有放入顺序，且可重复；Set的特点：元素无放入顺序，且不可重复（注意：元素虽然无放入顺序，但是元素在Set中的位置是由该元素的HashCode决定的，其位置是固定的）。List支持for循环，也就是通过下标来遍历，也可以用迭代器，但是Set只能用迭代器，因为他无序，无法使用下标取值；<br>List接口有三个实现类：LinkedList,ArrayList,Vector。Set接口有两个实现类：HashSet（底层由HashMap实现），LinkedHashSet<br>Set：检索元素效率低，删除和插入效率高，插入和删除不会引起元素位置改变。List：和数组类似，List可以动态增长，查找元素效率高，插入删除元素效率低，因为会引起其他元素位置改变。</p>
+<h3 id="HashSet与HashMap"><a href="#HashSet与HashMap" class="headerlink" title="HashSet与HashMap"></a>HashSet与HashMap</h3><p>1、HashSet底层是采用HashMap实现的。HashSet 的实现比较简单，HashSet 的绝大部分方法都是通过调用 HashMap 的方法来实现的，因此 HashSet 和 HashMap 两个集合在实现本质上是相同的。<br>2、HashMap的key就是放进HashSet中对象，value是Object类型的。<br>3、当调用HashSet的add方法时，实际上是向HashMap中增加了一行(key-value对)，该行的key就是向HashSet增加的那个对象，该行的value就是一个Object类型的常量</p>
+<p>4、Hashtable和HashMap它们两个内部实现方式的数组的初始大小和扩容的方式。HashTable中hash数组默认大小是11，增加的方式是 old*2+1。HashMap中hash数组的默认大小是16，而且一定是2的指数。</p>
+<h3 id="HashMap与HashTable"><a href="#HashMap与HashTable" class="headerlink" title="HashMap与HashTable"></a>HashMap与HashTable</h3><p>前者线程不安全,后者线程安全(通过在方法前加Synchronize)。Hashtable 中的方法是同步的，而HashMap中的方法在缺省情况下是非同步的。在多线程并发的环境下，可以直接使用Hashtable，但是要使用HashMap的话就要自己增加同步处理了。</p>
+<h3 id="HashSet如何实现去重"><a href="#HashSet如何实现去重" class="headerlink" title="HashSet如何实现去重"></a>HashSet如何实现去重</h3><p>通过hashcode比较如果相同,再通过equals方法比较。两者都相等说明重复了</p>
+<p> 对于自定义类的对象</p>
+<p>​              new Student(“zhangsan”,21)    </p>
+<p>​              new Student(“zhangsan”,21)</p>
+<p> 这两个对象是可以存到HastSet中的，因为它们是new的新的 所以他们的哈希值是不同的，但这不是我们希望的，所以我们要在Student类中重写hashCode()方法和equals()方法</p>
+<h3 id="遍历方式对比"><a href="#遍历方式对比" class="headerlink" title="遍历方式对比"></a>遍历方式对比</h3><p>for,增强for(foreach),迭代器一共3种,foreach底层也是通过迭代器实现</p>
+<p>for 循环和迭代器 Iterator对比：<br>①ArrayList对随机访问比较快，而for循环中的get(),采用的即是随机访问的方法，因此在ArrayList里，for循环较快<br>②采用LinkedList 则是顺序访问比较快，lterator中的next(),采用的即是顺序访问的方法，因此在LinkedList里，使用Iterator较快。</p>
+<p>③从数据结构角度分析，for循环适合访问顺序结构，可以根据下标快速获取指定元素。而lterator适合一为选代器是通过next()和Pre()来定位的，可以访问没有顺序的集合。</p>
+<p>​                                    <strong>总结:数组用for,链表用迭代器</strong></p>
+<p>④使用 Iterator 的好处在于可以用相同方式去遍历集合中元素，而无需考虑集合类的内部实现（只要它实现用lterator来遍历集合中元素，一旦不再使用List转而使用Set来组织数据，那遍历元素的代码不用做任何修改；如果使用for来遍历，那所有遍历此集合的算法都得做相应调整。因为List有序，Set无序，结构不同，它们的访问算法也不一样。（由此也说明遍历和集合本身分离了） 解耦!!!任何东西都可以通过加一层实现解耦:smile:</p>
+<h3 id="ArrayList扩容"><a href="#ArrayList扩容" class="headerlink" title="ArrayList扩容"></a>ArrayList扩容</h3><p>默认长度为10,每次插入数据时会先检查容量够不够，不够会进行扩容，否则直接将元素放在下一个位置。在jdk1.8中，当new一个ArrayList时，底层不会立马去创建一个10个长度的数组，而是创建一个空数组，在list执行第一次add方法时才会进行创建，这样是为了节省内存，当当前有效元素个数大于数组长度时，也是进行1.5倍的一个扩容。</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220920101246836.png" alt="image-20220920101246836"></p>
+<p>数组在java里是一种特殊类型，既不是基本数据类型也不是引用数据类型。<br>有别于普通的“类的实例”对象，java里数组不是类，所以也就没有对应的class文件，数组类型是由jvm从元素类型合成出来的；<br>在jvm中获取数组的长度是用arraylength这个专门的字节码指令的；<br>在数组的对象头里有一个_length字段，记录数组长度，只需要去读_length字段就可以了。<br>所以ArrayList中定义的最大长度为Integer最大值减8，这个8就是就是存了数组_length字段。<br>————————————————<br>版权声明：本文为CSDN博主「langzilige」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/li646495946/article/details/124725639">https://blog.csdn.net/li646495946/article/details/124725639</a></p>
+<h2 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>是Queue的唯一直接实现类，其他在juc下</p>
+<p>一个基于优先级堆的无界优先级队列。优先级队列的元素按照其自然顺序进行排序，或者根据构造队列时提供的 Comparator  进行排序，具体取决于所使用的构造方法。优先级队列不允许使用 null 元素。依靠自然顺序的优先级队列还不允许插入不可比较的对象，不可排序的对象可能导致  ClassCastException。因为无法排序</p>
+<p>此队列的头是按指定排序方式确定的最小元素。如果多个元素都是最小值，则头是其中一个元素——选择方法是任意的。队列获取操作  poll、remove、peek 和 element  访问处于队列头的元素。优先级队列是无界的，但是有一个内部容量，控制着用于存储队列元素的数组大小。它通常至少等于队列的大小。随着不断向优先级队列添加元素，其容量会自动增加。无需指定容量增加策略的细节。</p>
+<p>内部容量默认为11；</p>
+<blockquote>
+<p>有界队列：就是有固定大小的队列。比如设定了固定大小的 LinkedBlockingQueue，又或者大小为 0，只是在生产者和消费者中做中转用的 SynchronousQueue。</p>
+<p>无界队列：指的是没有设置固定大小的队列。这些队列的特点是可以直接入列，直到溢出。当然现实几乎不会有到这么大的容量（超过 Integer.MAX_VALUE），所以从使用者的体验上，就相当于 “无界”。比如没有设定固定大小的 LinkedBlockingQueue。</p>
+<p>集合类基本上都是无界的</p>
+<p>在线程池的配置中，任务队列一般使用无界的LinkedBlockingQueue(默认是无界的)，因此JVM内存可能被撑爆,产生OOM，因此一定要为这个队列设置初始容量</p>
+</blockquote>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a><strong>实现</strong></h3><p>底层是数组，知道父节点的坐标就可以求出儿子节点的坐标</p>
+<p>a[i]为父节点，a[2i+1],a[2i+2]为子节点</p>
+<p>因此在小顶堆中</p>
+<p>a[i]&lt;a[2i+1] &amp;&amp; a[i]&lt;a[2i+2]</p>
+<p>在大顶堆中</p>
+<p>a[i]&gt;a[2i+1] &amp;&amp; a[i]&gt;a[2i+2]        &amp;&amp;具有短路功能,前面为false就不会执行。&amp;不可以</p>
+<p>因此只用一个数组就可以维护一个堆</p>
+<h4 id="增加add"><a href="#增加add" class="headerlink" title="增加add"></a>增加add</h4><p>其中最核心的两个操作是上浮swim和下沉sink：如果一个节点比父节点大，那<br>么需要交换这个两个节点；交换后还可能比它新的父节点大，因此需要不断地进行比较和交换操<br>作，我们称之为上浮；类似地，如果一个节点比父节小，也需要不断地向下进行比较和交换操作，<br>我们称之为下沉。如果一个节点有两个子节点，我们总是交换最大的子节点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swim</span><span class="params">(<span class="keyword">int</span> pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (pos &gt; <span class="number">0</span> &amp;&amp; heap[pos/<span class="number">2</span>] &lt; heap[pos]) <span class="comment">//父小于子</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">swap</span>(heap[pos/<span class="number">2</span>], heap[pos]); <span class="comment">//父子交换</span></span><br><span class="line">		pos = pos / <span class="number">2</span>;                <span class="comment">//以父为子</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//下沉</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sink</span><span class="params">(<span class="keyword">int</span> pos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">2</span> * pos + <span class="number">1</span> &lt;= N) <span class="comment">//子节点不溢出</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">2</span> * pos + <span class="number">1</span>; <span class="comment">//i为pos的左儿子</span></span><br><span class="line">		<span class="comment">// i不越界    左儿子小于右儿子   那就让右儿子和pos比较</span></span><br><span class="line">		<span class="keyword">if</span> (i &lt; N &amp;&amp; heap[i] &lt; heap[i+<span class="number">1</span>]) ++i;</span><br><span class="line">		<span class="comment">//如果pos已经大于i的节点值  就不用交换了直接break</span></span><br><span class="line">		<span class="keyword">if</span> (heap[pos] &gt;= heap[i]) <span class="keyword">break</span>;</span><br><span class="line">		<span class="built_in">swap</span>(heap[pos], heap[i]);  <span class="comment">//否则就交换</span></span><br><span class="line">		pos = i; <span class="comment">//更新pos为i</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>源码上移：新增元素时采用上移的方法，即把元素放到数组最后再上移</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">siftUpUsingComparator</span><span class="params">(<span class="keyword">int</span> k, E x)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//当还没到堆顶的时候</span></span><br><span class="line">    <span class="keyword">while</span> (k &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">//获取非叶子节点，右移获得父节点</span></span><br><span class="line">        <span class="keyword">int</span> parent = (k - <span class="number">1</span>) &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//获得父节点</span></span><br><span class="line">        Object e = queue[parent];</span><br><span class="line">        <span class="comment">//比较看看符合规则吗</span></span><br><span class="line">        <span class="keyword">if</span> (comparator.compare(x, (E) e) &gt;= <span class="number">0</span>)</span><br><span class="line">            <span class="comment">//符合直接打断循环</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="comment">//交换位置将父节点移动到儿子的位置</span></span><br><span class="line">        queue[k] = e;</span><br><span class="line">        <span class="comment">//继续上移</span></span><br><span class="line">        k = parent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//移动完成后把元素放到位置k也就是某一个父节点的位置</span></span><br><span class="line">    queue[k] = x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>下移:以collection初始化时采用下移的方法，遍历列表每一个元素都下移。从最后一个非叶子节点开始下移，先获取到左边儿子节点(左移+1)，再获取到右儿子节点(left+1),</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">siftDownUsingComparator</span><span class="params">(<span class="keyword">int</span> k, E x)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">//非叶子节点</span></span><br><span class="line">        <span class="keyword">int</span> half = size &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">    	<span class="comment">//遍历每一个非叶子节点寻找自己的位置</span></span><br><span class="line">        <span class="keyword">while</span> (k &lt; half) &#123;</span><br><span class="line">            <span class="comment">//左孩子下标，2倍+1</span></span><br><span class="line">            <span class="keyword">int</span> child = (k &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//左孩子</span></span><br><span class="line">            Object c = queue[child];</span><br><span class="line">            <span class="comment">//右孩子</span></span><br><span class="line">            <span class="keyword">int</span> right = child + <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//合法比较左右孩子,把右孩子放到左边</span></span><br><span class="line">            <span class="keyword">if</span> (right &lt; size &amp;&amp;</span><br><span class="line">                comparator.compare((E) c, (E) queue[right]) &gt; <span class="number">0</span>)</span><br><span class="line">                c = queue[child = right];</span><br><span class="line">            <span class="comment">//取较大的再与c比较，符合就找到了</span></span><br><span class="line">            <span class="keyword">if</span> (comparator.compare(x, (E) c) &lt;= <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            queue[k] = c;</span><br><span class="line">            <span class="comment">//继续向下找</span></span><br><span class="line">            k = child;</span><br><span class="line">        &#125;</span><br><span class="line">    	<span class="comment">//插入找到的位置</span></span><br><span class="line">        queue[k] = x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="删除堆顶poll"><a href="#删除堆顶poll" class="headerlink" title="删除堆顶poll"></a>删除堆顶poll</h4><p>　优先队列中，在队列非空情况下移除集合中第一个元素，也就是下标为0的元素，然后将集合中最后一个元素移到下标为0位置，在将下标为0的新元素执行“下沉”操作。如下图示例(注意，下图示例是小堆，不过原理是一样的，图片来自<a target="_blank" rel="noopener" href="http://www.cnblogs.com/CarpenterLee/p/5488070.html">深入理解Java PriorityQueue</a>)</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220922193953676.png" alt="image-20220922193953676"></p>
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><blockquote>
+<p>默认无参:初始化默认长度为11的数组，不设置比较器</p>
+<p>comparator:设置默认长度11,设置比较器</p>
+<p>size,comparator:设置数组长度为size同时设置比较器</p>
+<p>collections:判断collection类型,</p>
+<p>如果是sortedset就获得sortedset的比较器同时复制数组,检查元素是否为null，设置数组以及长度。因为已经排好序了因此不用调整位置。util包下的集合类中只有TreeSet是SortedSet</p>
+<p>如果是PriorityQueue，先获取比较器直接获取原来queue的数组以及长度。</p>
+<p>如果都不是(也就是list或者queue等),设置比较器为空同时直接将元素获取到设置数组以及长度。最后再调用heapify实现堆化</p>
+</blockquote>
+<p>插入逻辑</p>
+<blockquote>
+<p>调用add添加元素,add中直接调用本类的offer方法。offer方法先将modCount自增。判断是否要扩容。扩完容后。再插入通过上移调整位置</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认是小顶堆</span></span><br><span class="line">PriorityQueue&lt;Integer&gt; minHeap = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(); </span><br><span class="line"><span class="comment">//大顶堆:在构造方法中传入comparator</span></span><br><span class="line">PriorityQueue&lt;Integer&gt; maxHeap = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(<span class="number">11</span>,<span class="keyword">new</span> Comparator&lt;Integer&gt;()&#123; </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Integer i1,Integer i2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> i2-i1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//或者利用工具类返回的Comparator</span></span><br><span class="line">PriorityQueue&lt;Integer&gt; minHeap = <span class="keyword">new</span> PriorityQueue&lt;Integer&gt;(Collections.reverseOrder()); </span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>扩容机制</strong></p>
+<p>小于64就new = 2*old+2,大于等于64: new = 1.5old</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> newCapacity = oldCapacity + ((oldCapacity &lt; <span class="number">64</span>) ?</span><br><span class="line">                                 (oldCapacity + <span class="number">2</span>) :</span><br><span class="line">                                 (oldCapacity &gt;&gt; <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><strong>应用</strong></p>
+<ul>
+<li>选择最大的k个数(最小堆)</li>
+</ul>
+<p>通过维护一个大小为k的优先级队列，遍历元素进入队列，如果队列容量还没到k直接进入，容量大于等于k了就比较队列的最小值(也就是堆顶)与新增元素的大小，后者大就加入，否则什么也不做。相当于看看第4个人的成绩有没有大过第三个人的成绩，大过就取代她。</p>
+<ul>
+<li>选择最小的k个数(最大堆)</li>
+</ul>
+<p>同上</p>
+<h2 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a><strong>TreeSet</strong></h2><p>TreeSet是一个有序<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%9B%86%E5%90%88&spm=1001.2101.3001.7020">集合</a>，她的元素 按照升序排列，默认是按照自然顺序排列，也就是说TreeSet中的对象元素需要实现Comparable接口。</p>
+<h2 id="Integer"><a href="#Integer" class="headerlink" title="Integer"></a>Integer</h2><ol>
+<li>Byte、Short、Integer、Long、Character都是具有缓存机制的类。缓存工作都是在静态块中完成，在类<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F&spm=1001.2101.3001.7020">生命周期</a>的初始化阶段执行。</li>
+<li>缓存范围？<br> Byte，Short，Integer，Long为 -128 到 127</li>
+<li>需要通过valueOf缓存机制才会生效</li>
+</ol>
+<p>1.如果定义的变量在 -128到127之间，则是直接去缓存cache里的值，所以如果数值一致则对应的地址值也会一致，所以我们用 == 判断两个值是否相等，是返回 true的；</p>
+<p>2.如果定义的变量不在 -128到127之间，则通过new Integer(int i)的方式创建数值，并且每次都会重新new一个对象，这就导致每次的对象的数值即使一样但是地址值不一致，所以此时用 == 判断两个值是否相等就不如我们所愿了；</p>
+<p>3.所以我们遇到包装类 Integer定义的变量的时候，如果要判断两个变量的值是否相等，则使用 equals来判断，尽量不要用 == 的来判断。</p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>String a =new String(“abc”) 实际上是创建了两个对象（假设之前String的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%B8%B8%E9%87%8F%E6%B1%A0&spm=1001.2101.3001.7020">常量池</a>中没有创建任何对象），<strong>一个是“abc”，一个是new String()。</strong>当第二次创建对象时常量池中含有”abc”，只会创建一次对象。所以正确的为一个或者两个。</p>
+<p>String a = “abc”只是在常量池创建了”abc”对象然后将其引用返回</p>
+<h2 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h2><p>1、==是运算符</p>
+<p>①既可以比较基本类型也可以比较引用类型。 </p>
+<p>②对于基本类型就是比较值（不一定类型要相同）</p>
+<p>   对于引用类型就是比较内存地址，即两个引用是否指向同一个对象。</p>
+<p>2、equals（）是方法</p>
+<p>①只适用于引用数据类型</p>
+<p>②equals属于java.lang.Object类中的方法<br>public boolean equals(object obj) {<br>        return (this ==obj);<br>}<br>说明: object类中定义的equals()和==的作用是相同的:比较两个对象的地址值是否相同，即两个引用是否指向同一对象实体。</p>
+<p>③像String、Date、File、包装类等都重写了Object类的equals（）方法。重写之后，比较的不是两个引用地址是否相同，而是比较两个对象的“内容实体”。</p>
+<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><p>Collection接口是Set、List和Queue接口的父接口，Collection通常情况下不被直接使用。<br> 因此Collection 接口定义了一些通用的方法，List 接口和 Set 接口继承自 Collection 接口，所以也可以调用这些方法。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>add(Object o)</td>
+<td>向集合中添加一个元素</td>
+</tr>
+<tr>
+<td>addAll(Collection c)</td>
+<td>向集合中添加集合 c 中的所有元素</td>
+</tr>
+<tr>
+<td>clear()</td>
+<td>清除所有元素</td>
+</tr>
+<tr>
+<td>contains(Object o)</td>
+<td>判断集合中是否包含指定元素</td>
+</tr>
+<tr>
+<td>containsAll(Collection c)</td>
+<td>判断集合中是否包含集合 c 中的所有元素</td>
+</tr>
+<tr>
+<td>isEmpty()</td>
+<td>判断集合是否为空</td>
+</tr>
+<tr>
+<td>iterator()</td>
+<td>返回Iterator对象，用于遍历集合中的元素</td>
+</tr>
+<tr>
+<td>remove(Object o)</td>
+<td>删除一个指定元素</td>
+</tr>
+<tr>
+<td>removeAll(Collection c)</td>
+<td>删除集合 c 中所有的元素</td>
+</tr>
+<tr>
+<td>retainAll(Collection c)</td>
+<td>仅保留集合 c 中出现的元素</td>
+</tr>
+<tr>
+<td>int size()</td>
+<td>返回集合中元素的个数</td>
+</tr>
+<tr>
+<td>Object[] toArray()</td>
+<td>把集合转换为一个数组</td>
+</tr>
+</tbody></table>
+<p>​    </p>
+<h2 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h2><p>Collections 是一个包装类。它包含有各种有关<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E9%9B%86%E5%90%88&spm=1001.2101.3001.7020">集合</a>操作的静态多态方法。此类不能实例化，就像一个工具类，服务于Java的Collection框架。他提供一系列静态方法实现对各种集合的搜索、排序、线程安全化等操作。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sort()</td>
+<td>对集合进行排序</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>反转集合中的元素的顺序</td>
+</tr>
+<tr>
+<td>shuffle()</td>
+<td>对集合进行随机排序</td>
+</tr>
+<tr>
+<td>max() , min()</td>
+<td>获取集合最大值、最小值</td>
+</tr>
+<tr>
+<td>binarySearch()</td>
+<td>二分查找查找集合指定元素，返回元素所在索引,若元素不存在，返回该元素最有可能存在的位置索引</td>
+</tr>
+<tr>
+<td>indexOfSubList()</td>
+<td>查找子串在集合中首次出现的位置</td>
+</tr>
+<tr>
+<td>lastIndexOfSubList()</td>
+<td>查找子串在集合中首次出现的位置，从后往前找</td>
+</tr>
+<tr>
+<td>replaceAll()</td>
+<td>替换集合中指定的元素，若元素存在返回true，否则返回false</td>
+</tr>
+<tr>
+<td>rotate()</td>
+<td>集合中的元素向后移动k位置</td>
+</tr>
+<tr>
+<td>copy(list1,list2)</td>
+<td>将集合list2中的元素复制到list1中，并覆盖相应索引位置的元素</td>
+</tr>
+<tr>
+<td>swap()</td>
+<td>交换集合中指定元素的位置</td>
+</tr>
+<tr>
+<td>fill()</td>
+<td>替换集合中的所有元素，用对象object</td>
+</tr>
+</tbody></table>
+<h2 id="juc"><a href="#juc" class="headerlink" title="juc"></a>juc</h2><h3 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h3><p>阻塞队列中，所有常用的方法都在 BlockingQueue 接口中定义。如</p>
+<p>插入元素的方法： put，offer，add。移除元素的方法： remove，poll，take。</p>
+<p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220923114713055.png" alt="image-20220923114713055"></p>
+<p>当队列是空的，从队列中获取元素的操作将会被阻塞。<br> 当队列是满的，从队列中添加元素的操作将会被阻塞。</p>
+<p>理由：需要结合生产者与消费者来说。<br>　　好处就是不需要关心什么时候需要阻塞线程，什么时候需要唤醒线程，因为这一切BlockingQueue 都一手包办了。在 concurrent 包发布之前，多线程环境下，程序员必须自己控制这些细节，尤其还要兼顾效率和线程安全，这给程序带来不小的复杂度。</p>
+<p>解耦了生产者与队列之间的关系，不再需要管理队列是否满了或者为空，也不需要担心队列的并发问题。如果没有阻塞队列则需要手动进行同步操作，同步生产者与消费者之间的关系(比如使用wait(),notify(),notifyAll(),或者其他锁)使得代码非常冗杂。阻塞队列正是起到解耦的作用让程序员不再关心队列同步问题，而专注于业务代码。</p>
+<p>应用场景：生产者-消费者（线程池）</p>
+<p>生产者-消费者实现有多种方式</p>
+<ol>
+<li>Object 类中的 wait、notify、notifyAll</li>
+<li>Lock 中 Condition 的 await、signal、signalAll</li>
+<li>BlockingQueue</li>
+</ol>
+<h3 id="线程池原理"><a href="#线程池原理" class="headerlink" title="线程池原理"></a>线程池原理</h3><h3 id="LinkedBlockingQueue"><a href="#LinkedBlockingQueue" class="headerlink" title="LinkedBlockingQueue"></a>LinkedBlockingQueue</h3><p><img src="https://testmybuck.oss-cn-beijing.aliyuncs.com/img/image-20220923193520403.png" alt="image-20220923193520403"></p>
+<p>Queue接口定义了3套操作</p>
+<ul>
+<li>add,remove </li>
+<li>offer,poll</li>
+<li>element,peek </li>
+</ul>
+<p>其中offer，poll，peek较为健壮不会返回异常而是返回null</p>
+<p>LBQ除了实现了Queue还实现了BlockingQueue，里面添加了新的一套阻塞操作</p>
+<ul>
+<li>put,take  满了阻塞put，空了阻塞take</li>
+</ul>
+<p>同时添加了增强版offer以及poll，使得这套操作可以在设定等待时间内获取值</p>
+<p>为了实现同步，并发功能，LBQ使用了JUC下的ReentrantLock以及Condition控制</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// take, poll 等移除操作需要持有的锁</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock takeLock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"><span class="comment">// put, offer 等新增操作需要持有的锁</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ReentrantLock putLock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"><span class="comment">// 当队列没有数据时，删除元素线程被挂起</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Condition notEmpty = takeLock.newCondition();</span><br><span class="line"><span class="comment">// 当队列为空时，添加元素线程被挂起</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Condition notFull = putLock.newCondition();</span><br></pre></td></tr></table></figure>
+
+<p>分别是读写锁以及非满与非空条件，condition需要在Reentranlock下使用，也就是必须上锁才可以操作condition对象    </p>
+<blockquote>
+<p>ArrayBlockingQueue中的数字段只是使用int类型为什么可以保证并发安全?</p>
+<p>因为ArrayBlockingQueue使用的读写锁是同一把，属于串行操作，最多只有一个线程修改不会产生并发问题。而LinkedBlockingQueue读写锁不同，最多可能有2个线程读写会产生并发问题因此需要用原子引用类AtomicInteger，通过CAS保证变量正确。</p>
+</blockquote>
+<p>put逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(E e)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">int</span> c = -<span class="number">1</span>;</span><br><span class="line">    Node&lt;E&gt; node = <span class="keyword">new</span> Node&lt;E&gt;(e);  <span class="comment">// 将需要添加的数据封装为 Node</span></span><br><span class="line">    <span class="keyword">final</span> ReentrantLock putLock = <span class="keyword">this</span>.putLock;  <span class="comment">// 获取添加操作的锁</span></span><br><span class="line">    <span class="keyword">final</span> AtomicInteger count = <span class="keyword">this</span>.count;  <span class="comment">// 获取队列实际元素数量</span></span><br><span class="line">    putLock.lockInterruptibly();  <span class="comment">// 运行可被中断加锁 API</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 如果队列元素数量 == 队列最大值，则将线程放入条件队列阻塞</span></span><br><span class="line">        <span class="keyword">while</span> (count.get() == capacity) &#123;  </span><br><span class="line">            notFull.await();</span><br><span class="line">        &#125;</span><br><span class="line">        enqueue(node);  <span class="comment">// 执行入队流程</span></span><br><span class="line">        <span class="comment">// 获取值并且自增，举例：count = 0，执行后结果值 count+1 = 2，返回 0</span></span><br><span class="line">        c = count.getAndIncrement();  </span><br><span class="line">        <span class="keyword">if</span> (c + <span class="number">1</span> &lt; capacity)  <span class="comment">// 如果自增过的队列元素 +1 小于队列容器最大数量，唤醒一条被阻塞在插入等待队列的线程</span></span><br><span class="line">            notFull.signal();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        putLock.unlock();  <span class="comment">// 解锁操作</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="number">0</span>)  <span class="comment">// 当队列中有一条数据，则唤醒消费组线程进行消费</span></span><br><span class="line">        signalNotEmpty();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>入队方法整体流程比较清晰，做了以下几件事：</p>
+<ol>
+<li>队列已满，则将当前线程阻塞</li>
+<li>队列中如果有空缺位置，将数据封装的 Node 执行入队操作</li>
+<li>如果 Node 执行入队操作后，队列还有空余位置，则唤醒等待队列中的添加线程</li>
+<li>如果数据入队前队列没有元素，入队成功后唤醒消费阻塞队列中的线程</li>
+</ol>
+<p><strong>分别是对自己入队，对put进程，take进程发送通知</strong></p>
+<p>take逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">take</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    E x;</span><br><span class="line">    <span class="keyword">int</span> c = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">final</span> AtomicInteger count = <span class="keyword">this</span>.count;  <span class="comment">// 获取当前队列实际元素个数</span></span><br><span class="line">    <span class="keyword">final</span> ReentrantLock takeLock = <span class="keyword">this</span>.takeLtakeLocock;  <span class="comment">// 获取 takeLock 锁实例</span></span><br><span class="line">    takeLock.lockInterruptibly();  <span class="comment">// 获取 takeLock 锁，获取不到阻塞过程中，可被中断</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (count.get() == <span class="number">0</span>) &#123;  <span class="comment">// 如果当前队列元素 == 0，当前获取节点线程加入等待队列</span></span><br><span class="line">            notEmpty.await();</span><br><span class="line">        &#125;</span><br><span class="line">        x = dequeue();  <span class="comment">// 当前队列元素 &gt; 0，执行头节点出队操作</span></span><br><span class="line">        c = count.getAndDecrement();  <span class="comment">// 获取当前队列元素个数，并将数量 - 1</span></span><br><span class="line">        <span class="keyword">if</span> (c &gt; <span class="number">1</span>)  <span class="comment">// 当队列中还有还有元素时，唤醒下一个消费线程进行消费</span></span><br><span class="line">            notEmpty.signal();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        takeLock.unlock();  <span class="comment">// 释放锁</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (c == capacity)  <span class="comment">// 移除元素之前队列是满的，唤醒生产者线程添加元素</span></span><br><span class="line">        signalNotFull();</span><br><span class="line">    <span class="keyword">return</span> x;  <span class="comment">// 返回头节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>出队操作整体流程清晰明了，和入队操作执行流程相似</p>
+<ol>
+<li>队列已满，则将当前出队线程阻塞</li>
+<li>队列中如果有元素可消费，执行节点出队操作</li>
+<li>如果节点出队后，队列中还有可出队元素，则唤醒等待队列中的出队线程</li>
+<li>如果移除元素之前队列是满的，唤醒生产者线程添加元素</li>
+</ol>
+<p><strong>分别是对自己出对，take进程，put进程发送通知</strong></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>Integer数组转int数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[] numInteger=<span class="keyword">new</span> Integer[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="keyword">int</span>[] num=Arrays.stream(numInteger).mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
+
+
+
+<p>offer，add区别：</p>
+<p>一些队列有大小限制，因此如果想在一个满的队列中加入一个新项，多出的项就会被拒绝。</p>
+<p>这时新的 offer 方法就可以起作用了。它不是对调用 add() 方法抛出一个 unchecked 异常，而只是得到由 offer() 返回的 false。</p>
+<p>poll，remove区别：</p>
+<p>remove() 和 poll() 方法都是从队列中删除第一个元素。remove() 的行为与 Collection 接口的版本相似，</p>
+<p>但是新的 poll() 方法在用空集合调用时不是抛出异常，只是返回 null。因此新的方法更适合容易出现异常条件的情况。</p>
+<p>peek，element区别：</p>
+<p>element() 和 peek() 用于在队列的头部查询元素。与 remove() 方法类似，在队列为空时， element() 抛出一个异常，而 peek() 返回 null</p>
+<h3 id="有界队列无界队列"><a href="#有界队列无界队列" class="headerlink" title="有界队列无界队列"></a>有界队列无界队列</h3><p>常见的有界队列为</p>
+<ul>
+<li>ArrayBlockingQueue 基于数组实现的阻塞队列，默认非公平一定要设置初始长度，当容量不够还add时会抛出异常，区别于ArrayList不能无限增加。通过ReentrantLock实现，默认是非公平锁，无法读写分离</li>
+<li>LinkedBlockingQueue 其实也是有界队列，但是不设置大小时就时Integer.MAX_VALUE，内部是基于链表实现的</li>
+<li>ArrayBlockingQueue 与 LinkedBlockingQueue 对比一哈 <ul>
+<li>ArrayBlockingQueue 实现简单，表现稳定，添加和删除使用同一个锁，通常性能不如后者</li>
+<li>LinkedBlockingQueue 添加和删除两把锁是分开的，所以竞争会小一些。高并发下性能提高较大</li>
+</ul>
+</li>
+<li>SynchronousQueue 比较奇葩，内部容量为零，适用于元素数量少的场景，尤其特别适合做交换数据用，内部使用 队列来实现公平性的调度，使用栈来实现非公平的调度，在Java6时替换了原来的锁逻辑，使用CAS代替了</li>
+<li>上面三个队列他们也是存在共性的 <ul>
+<li>put take 操作都是阻塞的</li>
+<li>offer poll 操作不是阻塞的，offer 队列满了会返回false不会阻塞，poll 队列为空时会返回null不会阻塞</li>
+<li>补充一点，并不是在所有场景下，非阻塞都是好的，阻塞代表着不占用CPU，在有些场景也是需要阻塞的，put take 存在必有其存在的必然性</li>
+</ul>
+</li>
+</ul>
+<p>常见的无界队列</p>
+<ul>
+<li>ConcurrentLinkedQueue 无锁队列，底层使用CAS操作，通常具有较高吞吐量，但是具有读性能的不确定性，弱一致性——不存在如ArrayList等集合类的并发修改异常，通俗的说就是遍历时修改不会抛异常</li>
+<li>PriorityBlockingQueue 具有优先级的阻塞队列</li>
+<li>DelayedQueue 延时队列，使用场景 <ul>
+<li>缓存：清掉缓存中超时的缓存数据</li>
+<li>任务超时处理</li>
+<li>补充：内部实现其实是采用带时间的优先队列，可重入锁，优化阻塞通知的线程元素leader</li>
+</ul>
+</li>
+</ul>
+<p>现在也来说一说无界队列的共同点 </p>
+<ul>
+<li>put 操作永远都不会阻塞，空间限制来源于系统资源的限制</li>
+<li>底层都使用CAS无锁编程</li>
+<li></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/p/65008/" rel="prev" title="leetcoe两数相加">
+                  <i class="fa fa-chevron-left"></i> leetcoe两数相加
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/p/65010/" rel="next" title="Canny图像分割">
+                  Canny图像分割 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AGA</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
