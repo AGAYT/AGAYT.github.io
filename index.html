@@ -384,289 +384,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://agayt.github.com/p/cl8ttkiho00070sg2bnc72oai/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="AGA">
-      <meta itemprop="description" content="hiahiahia">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="阿甘的blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/p/cl8ttkiho00070sg2bnc72oai/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-10-04 14:25:41 / 修改时间：14:26:38" itemprop="dateCreated datePublished" datetime="2022-10-04T14:25:41+08:00">2022-10-04</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>​    </p>
-<hr>
-<p>title: 面经<br>date: 2022-10-04 14:26:36<br>description: 面试知识点总结<br>id: 65045<br>tags: hexo<br>categories: 面试,java</p>
-<hr>
-<h1 id="面经"><a href="#面经" class="headerlink" title="面经"></a>面经</h1><p> 1.什么是Java虚拟机？为什么Java被称作是“平台无关的编程语言”？<br> 答：JAVA虚拟式是一种抽象化的计算机，有自己完善的硬件架构，如处理器、堆栈等，还有相应的指令系统。是一个可以执行JAVA字节码的虚拟机进程，JAVA的源文件被编译成能被JAVA虚拟机执行的字节码文件。<br> JAVA的运行原理是先用JAVA编译器把源文件转化成字节码文件，再启动虚拟机解释执行JAVA字节码文件。所以只要在各种平台上用JAVA虚拟机就可以执行JAVA程序。</p>
-<p>2.JDK和JRE的区别是什么？<br> JRE(Java Runtime Environment):是JAVA运行时的环境，其包括了虚拟机JVM和Java基础类库。<br> JDK(Java Development  kit):是Java开发工具包，是程序员使用JAVA语言编写JAVA程序所需的开发工具包。其包括了JRE和编译器JAVAC，还包括了JAVA程序调试和分析的工具：jconsole，jvisualvm等工具软件，和JAVA变程序编写所需的文档和Demo例子程序。</p>
-<p>如果只需运行JAVA程序，那么只安装JRE就足够了，如果需要编写JAVA程序，需要安装JDK。<br> PS：<br> 一，机器码，完全依附硬件而存在～并且不同硬件由于内嵌指令集不同，即使相同的0 1代 码意思也可能是不同的～换句话说，根本不存在跨平台性～比如～不同型号的CPU,你 给他个指令10001101，他们可能会解析为不同的结果<br> 二，我们知道JAVA是跨平台的，为什么呢？因为他有一个jvm,不论那种硬件，只要你装有 jvm,那么他就认识这个JAVA字节码。至于底层的机器码，咱不用管，有jvm搞定，他 会把字节码再翻译成所在机器认识的机器码</p>
-<p>3.”static”关键字是什么意思？Java中是否可以覆盖(override)一个private或者是static的方法？</p>
-<p>Static：静态修饰符。表明一个成员变量或者成员方法可以在没有所属类的实例变量的情况下被访问。</p>
-<p>JAVA中static方法不能被覆盖，因为方法覆盖是基于运行时动态绑定的，而static方法是编译时静态绑定的，再加上static方法跟类的任何实例都不相关。</p>
-<p>JAVA中private方法不能被覆盖，因为private修饰的变量和方法只能在当前类使用，如果是其他类继承当前类是不能访问private的方法或变量的，所以不能覆盖。</p>
-<p>4.是否可以在static环境中访问非static变量？<br> 不能，因为static变量是属于类的，当类被JAVA虚拟机载入时会对静态变量进行初始化。此时如果静态方法中有非静态变量，由于非静态变量是随着实例的创建而创建，此时还没有实例创建，所以非静态变量还没有创建，所以会出现编译错误</p>
-<p>5.String可以被继承吗？为什么？String str = “abc”;String str = new String(“abc”);分别创建几个对象<br> 答：不能被继承。因为String类有final修饰符，而被final修饰符修饰的不能被继承;<br> 前者0或1个，后者1或两个。若字符串常量池中没有，都在字符串常量池创建一个。后者还需要再堆创建一个“abc”实例变量。</p>
-<p>6.String,StringBuffer,StringBulider的区别？<br> 答：String是字符串常量（final修饰，不可被继承）.<br> 可通过后面两个创建字符串变量。<br> StringBuffer:(线程安全):绝大多数方法进行了同步处理，toString方法进行了对象缓存<br> StringBuilder:(非线程安全):方法没用synchornized修饰，toString会返回一个对象.</p>
-<p>7.集合图解答：<br> List:有序的不可重复（可插入多个null）<br> ArrayList:底层的数据结构是有序数组，线程不同步（查改速度快）<br> LinkList:底层的数据结构是双链表，线程不同步（增删速度快）<br> Vetor:线程安全<br> Set:无序的可重复(只能有一个null)<br> HashSet:底层的数据结构是哈希表，通过hashmap实现的，线程不安全不同步<br> TreeSet:底层的数据结构是二叉树，通过treemap实现的，可对元素进行排序</p>
-<p>Map:键值对<br> HashMap:底层的数据结构是：数组+(链表/红黑树)(处理hash冲突)，线程不同步。<br> TreeMap:底层的数据结构是桶+红黑树，线程不同步，可对Key值排序。<br> LinkHashMap:HashMap的子类，可记住插入数据的顺序。</p>
-<p>哈希图：<br> 8.反射：<br> （1）原理：类被加载时，JVM中会创建一个Class对象，这个对象装在了类的信息<br> （2）获取Class对象的方法：<br> ①对象.getClass<br> ②类.Class<br> ③Class的静态方法forName();<br> （3）作用：通过反射可以使代码获取已加载到JVM的类的属性和方法</p>
-<p>9.Class.forName与ClassLoader的区别?<br> 答：前者会初始化静态代码，后者不会</p>
-<p>10.动态代理的两种方法？<br> JDK(底层是反射)的动态代理跟cglib(底层是asm框架)</p>
-<p>11.final修饰符的作用？<br> 答：①修饰类：变为最终类，不能被继承<br> ②修饰方法：方法不能被重写<br> ③修饰变量：变成常量，常量必须被初始化且不能重新赋值</p>
-<p>12.单例模式：<br> 懒汉模式、饿汉模式、静态内部类、枚举、双重校验锁</p>
-<p>13.hashcode与equals与==<br> 答：每个对象都有hashcode，但不是唯一的。Hashcode相同，对象不一定相同，对象相同，hashcode一定相同。<br> Equals是方法，==是关系运算符，返回值都是boolean<br> 系统类一般已经覆盖了equals方法，比较的是内容<br> 若用户自定以类若没有覆盖equals方法，则调用父类Object的equals方法，比较的是地址<br> ==若是基本数据类型，比较的是类型<br> 若是引用类型（除了8中基本类型），则比较地址。</p>
-<p>当父类需要为子类自动完成hashcode、equals实现，需要覆写hashcode、equals方法。</p>
-<p>14.浅拷贝与深拷贝<br> 答：浅拷贝是只拷贝对象，不拷贝对象的其他信息。如一个Person有Name和Address.拷贝的对象与对象公用属性，若改变其中一个属性，则另一个也会改变。<br> 深拷贝就是完全拷贝一个独立的对象。</p>
-<p>15.数组和链表<br> 数组是有序的，每个元素占用内存相同，可通过下表快速查出元素。查询更改比较快，但是增删比较慢<br> 链表是无序的，通过指针联系在一起，每个节点有两个部分：一个是存储数据元素的数据域，一个是存储下一个节点的指针。</p>
-<p>16.Error、Exception、checkedException、RuntimeException<br> 答：Error:错误信息，是程序无法处理的错误，一般由JVM发出然后中断程序。如系统奔溃、内存空间不足，方法调用栈溢出等。</p>
-<p>17.Exception:异常信息，是程序可以处理的异常。分为checkedException、RuntimeException<br> checkedException是编译异常，分两种情况，一种是知道方法异常后怎么办，用try ctach捕获异常，第二红是不知道怎么办用Throw抛出<br> RuntimeException是运行异常，一般是程序的逻辑错误。如除数是0，数组下标越界、空指针异常。</p>
-<p>18.泛型是用来解决什么的<br> 答：泛型的本质是参数化类型，把操作数的数据类型指定为一个参数，泛型的好处在于在编译时就检查类型安全，并且所有的强制转换都是自动和隐式的，以提高代码的重用率。</p>
-<p>19.什么是序列化，怎么序列化，为什么要序列化，反序列化会遇到什么问题?<br> 答：<br> ①序列化是指可以将一个实例对象的状态信息写入到一个字节流中使其可以过socket进行传输、或持久化存储到数据库或文件系统中。<br> ②实现Serilizable接口。<br> ③把对象的字节序列永久存储到硬盘中，或在网络上传送对象的字节序列。<br> ④JVM会把传来的字节流中的serialVersionUID与本地类的serialVersionUID进行比较，若相同则一致，若不一致会报版本不一致的异常。<br> 可在一个类中显示定义serialVersionUID。</p>
-<p>JVM<br> 1.GC:垃圾回收机制:堆里面的对象当有引用指向它时，计数器+1(引用追踪)，则判断不为垃圾，当没有引用指向它时，则判断为垃圾，垃圾回收器会回收此对象。<br> 引用追踪:缺点：(两个对象互相引用时则计数器一直为1)<br> 可达性分析：将一些GC ROOT对象作为起点，遍历节点，搜索通过的路径成为引用链，当一个对象的没有被引用链引用时则判断为垃圾。</p>
-<p>2.GC的算法：<br> ①标记清除算法：会产生内存碎片<br> ②标记整理算法：代价大<br> ③复制算法：内存大</p>
-<ol>
-<li>内存泄露：无法释放已申请的空间 （柜子钥匙丢了）<br> 内存溢出：申请的空间小于实际的空间。(int大小的空间存储long类型)</li>
-<li>GC一次完整流程<br> 答：对象诞生在Eden区分配-&gt;新生代<br> 当Eden区没有足够空间时，会进行一次Minor GC，如果依旧存活，移动到Form，变成Survivor，进行标记，当一次对象默认超过15次没有被回收掉则进入老年区。</li>
-</ol>
-<p>5.类的加载：将类的.Class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区中，然后在堆创建一个与该类的java.lang.Class对象。<br> 类的加载过程：三个步骤：Load装载：查找并加载对应的二进制文件<br> Link链接：1)验证 2)准备 3)解析<br> Initialize初始化：初始化静态变量<br> 类什么时候被初始化：6种情况<br> 类什么时候被加载：5种情况<br> 6.垃圾回收器G1(吞吐量优先)和CMS(响应优先)</p>
-<p>开源框架</p>
-<p>1.Tomcat的结构：<br> 一个server服务器，对象多个Service服务，一个Service服务有很多组件，核心的有Connector、Container（多对一），Session组件。<br> Tomcat类加载：BootStrap启动类加载、System系统类加载、Common通用类加载、Wepapp应用类加载</p>
-<p>2.Tomcat如何调优、设计哪些参数<br> ①内存优化<br> ②多线程优化<br> ③缓存优化</p>
-<p>3.为什么要使用Spring<br> ①方便解耦，便于开发（Spring相当于一个大工厂，可以将所有对象的创建和依赖关系维护都交给Spring管理）<br> ②支持AOP编程（Spring提供面向切面编程，可以很方便得实现对程序进行权限拦截和运行监控）<br> ③支持事务的管理（通过配置就可以完成事务的管理，不需要手动编程）</p>
-<p>4.什么是AOP？（动态代理）<br> 面向切面编程。简单来说就是统一处理某一类的问题的编程思想，比如日志、异常等。可以动态地将代码切入到类地指定方法、指定位置上。</p>
-<p>5.什么是Ioc?<br>  答：控制反转，是Spring框架的核心，对于Spring来说，就是由Spring来负责控制对象的生命周期和对象间的关系。在Java开发中，Ioc意味着将自己设计好的类交给系统去控制，而不是类的内部控制，这称为控制反转。所谓控制反转就是应用本身不负责依赖对象的创建及维护，依赖对象的创建及维护是由外部容器负责的。这样控制权就由应用转移到了外部容器，控制权的转移就是所谓反转。<br> 依赖注入：在运行期，由外部容器动态地将依赖对象注入到组件中。</p>
-<p>6.bean的生命周期：<br> ①通过静态工厂或者构造器创建Bean<br> ②为bean属性赋值<br> ③调用bean的初始化方法<br> ④bean可以使用了<br> ⑤当容器关闭时调用Bean的摧毁方法</p>
-<p>7.Spirng有哪些主要模块<br> Spring Core：Spring的核心类库，Spring所有的功能都依赖于此类库，该库主要实现 IOC功能。<br> AOP：提供了常用的拦截器<br> ORM：提供了对常用的ORM框架如hibernate、mybatis的管理和辅助支持。<br> DAO：提供了JDBC的支持，对JDBC进行封装<br> MVC：提供了一套轻量级的MVC实现<br> Context：提供了框架式的Bean访问方式<br> Web：提供常见的框架Strust1、JSF的支持</p>
-<p>8.spring生成并管理对象步骤：<br> ①方法入口<br> ②bean的实例化（创建bean）<br> ③Annotation的支持<br> ④依赖注入（为bean赋值）<br> ⑤初始化bean(InitializeBean)<br> ⑥注册(包扫描+@Controller等注解/@Bean/@Import/继承FactoryBean)<br> 9.Bean的四种实例化：<br> ①构造器（有参无参）<br> ②静态工厂<br> ③实例工厂<br> ④setter<br> 10.Spring常见的注入方式（依赖注入）<br> ①Setter属性注入<br> ②构造器方式注入<br> ③注解方式注入（@component@Controller…）(不用在XML配置bean)<br> \11. Spring中的bean是安全的吗<br> Spring的大多数bean都是无状态的，某种程度上说是安全的，如果是有状态的话（比如View Model对象）就得自己去保证线程安全。</p>
-<p>12.Spring支持几种bean的作用域?<br> 五种<br> ①singleton<br> ②propotype<br> ③web<br> ④request<br> ⑤session</p>
-<p>13.Spring自动装配bean的方式<br> ①no<br> ②byName<br> ③byType<br> ④构造函数<br> ⑤autodetect</p>
-<p>14.Spring的事务实现方式有哪些：<br> ①声明式事务：基于xml、基于注解<br> ②编码方式</p>
-<p>15.说明一下Spring的事务隔离？(脏读（两个事务t1、t2，t1读取已经被t2更新但是还未上传的数据，加入t2回滚则t1读取的内容无效）、不可重复读、幻读)<br> Spring的五大隔离级别，默认是isolation-default(使用数据库的设置),其他四个隔离级别和数据库的隔离级别一致<br> isolation-read uncommitted<br> isolation-read committed<br> isolation-repeatable read<br> isolation-serializabl</p>
-<p>16.Spring的注解：<br> 16.1@Configuration标识为配置类(代替配置XML文件)，@bean标注配置bean<br> 16.2@Component-scan类似XML文件中的扫描包<br> 16.3@Scope设置作用域<br> 16.4@Lazy-bean懒加载<br> 16.5@Import给容器中快速导入一个组件<br> 16.6@Autowired(类型优先)/@Resource(名字优先)/@Qualifier(多个组件时，指定装配的ID)：自动装配<br> 16.7@PropertySource加载外部配置文件</p>
-<p>17.SpringMVC：<br> 13.1 运行流程：<br> Springmvc 先发送请求给DispatherServlet<br> DispatherServlet查询一个或多个HandlerMapping,找到处理请求的Controller<br> Controller进行了业务逻辑处理后返回一个ModelAndView<br> DispatherServlet查询一个或多个ViewResolver视图解析器，找到ModelAndView对象指定的视图对象。<br> 视图对象负责渲染返回给客户端。</p>
-<p>13.2有哪些组件？<br> 前端控制器DispatherServlet<br> 映射处理器handlerMapping<br> 处理器Controller<br> 模板和视图ModelAndView<br> 视图解析器ViewResolver</p>
-<p>13.3 @RequestingMapping的作用？<br> 处理请求地址的注解，可作用于类或方法上，若作用在类上，表示类中所有的响应请求方式都是以该地址为父路径。<br> 有六种注解属性value、method、comsumes、produces、params、headers</p>
-<p>13.4 @autowired的作用？<br> 完成自动装配，通过@autowired的使用消除set\get方法(从Spring容器中获取实现类，注入该属性)</p>
-<p>SpringBoot<br> 1.什么是SringBoot?<br> 答：Springboot是Spirng的一个子项目，目的是为了简化Spring的使用，它简省了Spring的配置，提供了各种启动器。</p>
-<p>2.为什么要使用SpringBoot<br> 答：①为解决Java开发中，繁多的配置，复杂的部署，和第三方插件的集成难度。<br> ②Springboot使用“习惯大于配置”的理念让项目快速的运行起来，使用SpringBoot可以很容易创建一个独立运行的Jar,内嵌servlet容器。</p>
-<p>3.Springboot的核心配置文件是什么？<br> ①bootstrap.(yaml或properties):是由父工程ApplicationContext加载的，比aplication优先加载，且里面的属性不能被覆盖<br> ②application(yaml或properties):用于springboot项目的自动化配置</p>
-<p>4.Springboot的配置文件有哪几种类型？它们有什么区别？<br> Yaml和properties。主要是书写风格不同，yaml不支持@PropertySource注解导入</p>
-<p>5.Springboot有哪些方式可以启动热部署？<br> ①使用devtools启动热部署。<br> ②用IDEA编辑器，勾上自动编译或手动重新编译。</p>
-<p>6.SpringBoot常用的注解：<br> 答：@RestController:结合Controller跟@ResponseBody的功能<br> @SpringBootApplication:@ComponentScan、@Configuration(等于配置XML文件)、@EnableAutoConfiguration<br> @Autowired：自动导入<br> @PathVariable:将URL中占位符参数绑定到控制器处理方法的入参中</p>
-<p>7.Jpa和hibernate有什么区别？<br> Hibernate是一个JPA实现，Spring Date jpa是一个jpa数据访问抽象，其始终需要JPA提供程序，如hibernate或Eclipse Link</p>
-<p>Mybatis<br> 1.#{},与KaTeX parse error: Expected ‘EOF’, got ‘#’ at position 10: {}的区别？ 答：#̲{}会将传入的加上””,{}直接传入值</p>
-<p>2.mybatis有几种分页方式？<br> ①逻辑分页：使用Mybatis自带的RowBounds进行分页，他是一次性查询很多数据，然后在数据中再进行检索。<br> ②物理分页：使用分页插件如pagehelper，去数据库查询指定条数的分页数据</p>
-<p>3.RowBounds是一次性查出所有数据吗？为什么？<br> 不是，RowBounds表面上是在所有的数据中进行检索，但是mybatis是对jdbc进行封装，jdbc的驱动中有一个fetch size的配置，它规定了每次最多从数据取出的条数，若超出这个条数，执行next()的时候会去查询更多的数据。</p>
-<p>4.Mybatis是否支持延迟加载？原理是什么？<br> Mybatis支持延时加载，使用lazyLoadingEnable = true；即可<br> 原理是调用的时候再触发加载，而不是再初始化的时候就加载信息</p>
-<p>5.Mybatis与hibernate的区别？<br> ①mybatis更加灵活，是半自动化ORM框架，可以自己写SQL语句<br> ②mybatis的数据库可移植性比较差，因为它是自己写SQL语句，每个数据据SQL语句可能不同。<br> ③Mybatis使用门槛比较低<br> ④hibernate的二级缓存更加好</p>
-<p>6.Mybatis有哪些执行器（executor）？<br> ①simpleExecutor：每次执行select或update就会开启一个statement对象，用完立刻关闭对象<br> ②reuserExcutor：执行select或update,以SQL作为KEY值查找statement对象，不存在就窜创建，存在就使用，用完不关闭statement对象，而是放在map内供下一次使用<br> ③batchExecutor:执行update的时候，将所有的SQL都添加到批处理中，等待统一执行。</p>
-<p>7.Mybatis实现分页插件的原理是什么？<br> 使用Mybatis提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的SQL，然后再重写SQL，根据dialect方言，添加对应的物理分页语句和物理分页参数。</p>
-<p>8.如何编写一个自定义的插件？<br> 答：实现interceptor接口<br> 数据库<br> 1.数据库的三范式<br> 第一范式：强调的是数据库的原子性，即数据库表的每一列都是不可分割的原子数据项<br> 第二范式：实体的属性都完全依赖于数据库主关键字<br> 第三范式：任何非主属性都不依赖于其他非主属性</p>
-<p>2.数据库的引擎：InnoDB、myISAM<br> InnoDB会保留数据库表存储的ID最大值<br> myIsam会记录保存过的最大值ID</p>
-<p>3.说一说ASID是什么<br> Atomicity(原子性):一个事务的所有事件都是绑定的，全部完成或者全部不完成，即中间某个事件出了错，会回滚到事务开始前的状态。<br> Consisitency(一致性)：事务开始前和结束后数据库的完整性没有被破坏。<br> Isolation(隔离性)：数据库允许多个事件并发执行，隔离性可以防止事件的交叉执行而影响数据。<br> Durability(持久性)：事务结束后对数据库的修改是永久的，即使系统故障也不会丢失。</p>
-<p>4.Char跟varchar的区别<br> ①char是固定长度类型，效率高但是占内存，适合存储密码的MD5值<br> ②varchar是可变长度类型，效率低但是节省内存</p>
-<p>5.float跟double的区别<br> ①float是单精度浮点型，取值范围为-127-128，在内存中占4个字节<br> ②double是双精度浮点型，取值范围为-1023-1024，在内存中占8个字节</p>
-<p>6.MySQL的内连接、左连接、右连接的区别？<a target="_blank" rel="noopener" href="https://blog.csdn.net/rocling/article/details/90516802">https://blog.csdn.net/rocling/article/details/90516802</a><br> 答：inner join、left join、right join<br> 内连接是查询两表共有的数据<br> 左连接是从左表中返回的所有值，即使右表没有<br> 右连接相反右表中返回的所有值，即使左表没有</p>
-<p>7.Mysql的索引是如何实现的？<br> 答：索引是满足某种特定算法的数据结构，而这些数据结构会以某种方式指向数据，从而实现高效查找数据</p>
-<p>8.Mysql的事务隔离？<br> Read-uncommitted:未提交读，最低的隔离级别、事务未提交前就可被其他事务读取（可导致脏读、幻读、不可重复读）<br> Read-committed:提交读，提交后才能被读取（会造成幻读、不可重复读）<br> Repeatable-read:可重复度。默认级别，保证多次读取同一个数据时，其值都和事务开始的内容时一致的，禁止读取到别的事务未提交的数据（会造成幻读）<br> Serilizable:序列化，代价最高最可靠的隔离级别，能防止脏读、幻读、不可重复读）</p>
-<p>脏读：一个事务获取了另一个事务还提交的数据<br> 不可重复读：一个事务内多次读到同一数据<br> 幻读：同一事务内多次查询返回的结果集不一样</p>
-<p>9.Msql的引擎？<br> ①InnoDB：默认数据库的引擎，聚焦索引，提供了对数据库ACID事务的支持，还提供了行级锁和外键的约束<br> ②myIASM：非聚焦索引，不提供事务的支持，也不提供行级锁和外键</p>
-<p>10.行锁和表锁？<br> 答:MyISAM只支持表锁，InnerDB支持行锁跟表锁<br> 表级锁：开销小，加锁快，不会死锁。但是锁的力度大，发生锁冲突概率大，并发量最低。<br> 行级锁：开销大，加锁慢，会出现死锁。锁的力度小，发生锁冲突概率小，并发量最高。</p>
-<p>11.乐观锁与悲观锁？<br> 答：<br> 乐观锁：每次去拿数据的时候都认为别人不会修改，所以不上锁，但是在提交更新的时候会判断再此期间别人有没有去更新这个数据</p>
-<p>悲观锁：每次去拿数据的时候都认为别人会修改，所以每次拿数据的时候都会上锁，这样别人想拿这个数据的时候就会阻止，直到这个锁被释放。</p>
-<p>多线程<br> 1.什么是线程跟进程？<br> 答：①进程：在操作系统中能够独立运行，并且作为资源分配的基本单位。它表示运行中的程序，系统运行一个程序就是从一个进程的创建、运行到消亡的过程<br> ②线程：是比进程更小的执行单位，能够完成进程中的一个功能，一个进程在执行过程中可以有多个线程。同个类的线程共享进程的堆和方法区。</p>
-<p>2.什么是并发和并行？<br> 并发指的是多个任务交替进行，并行是真正意义上的同时进行（在多个CPU的系统中）。</p>
-<p>3.线程的生命周期和状态？<br> 答：<br> 新生状态：线程创建但是还未调用start()方法<br> 就绪状态：调用了strat方法，但是线程调度程序还没有把该程序设置为当前线程<br> 运行状态：线程调度程序将处于就绪状态的线程设置为当前线程，线程进入运行状态，开始 执行run函数的方法<br> 阻塞状态：线程在运行状态的时候被暂停。使用sleep()、wait()、synchronized()都会使线程 进入阻塞状态。<br> 死亡状态：当一个线程run方法执行完毕或者使用stop方法结束线程的时候，线程会进入 死亡状态，无法再使用strat()方法令其进入就绪状态.</p>
-<p>4.Sleep()方法跟wait()方法的区别？<br> 答：都能让线程进入阻塞状态<br> 不同：<br> sleep()没有释放锁，属于Thread类的静态方法，作用于线程，执行后可以通过超时或者调用interrupt()方法唤醒休眠中的线程。<br> wait()方法释放了锁，属于Object类的实例方法，作用与对象本身，执行后可以调用notify或者notifyAll唤醒线程.</p>
-<p>5.什么是线程的死锁？如何避免？<br> 答：多个线程同时被阻塞，它们中的一个或多个都在等待某个资源被释放，由于线程被无限期地阻塞，因此程序不可能正常终止。</p>
-<p>6.多线程开发会带来哪些问题？如何解决？<br> 答：①线程安全问题：指的是线程中开始访问到结束访问某一数据的时候，该数据可能被其他线程修改，那么对于当前线程就会表现为数据丢失、数据不一致等问题<br> 解决：尽量不要使用共享变量；使用synchronized或lock加锁；使用ThreadLocal()为每一个线程建立一个变量的副本，各个线程间独立操作，互不影响.</p>
-<p>②性能问题：一个线程从创建到销毁会占用大量的内存<br> 解决：利用线程池</p>
-<p>③活跃性问题：死锁、饥饿（线程优先级较低）、活锁（一直让资源）<br> 解决：避免一个线程同时获取多个锁；尝试使用定时锁</p>
-<p>④阻塞</p>
-<p>7.synchronized关键字<br> 答：synchronized关键字可以保证被它修饰的方法或者代码块在任何时刻都只能有一个线程执行。<br> synchronized关键字最主要的三种使用方式：修饰实例方法、修饰静态方法、修饰代码块<br> 对于普通同步方法，锁是当前实例对象<br> 对于静态同步方法，锁是当前类的Class对象<br> 对于同步代码块，锁是括号里配置的对象</p>
-<p>8.synchronized和lock的区别?<br> ①synchronized是关键字，lock是接口<br> ②synchronized发生异常时，会自动释放锁，因此不会导致死锁。Lock发生异常时，如果没有主动通过unlock去释放锁，则可以导致死锁<br> ③lock可以让等待锁的线程响应中断，而synchronized却不可以，使用synchronized线程会一直等待下去.<br> ④通过lock可以知道有没有成功获取锁(tryLock获取返回的boolean)，而synchronized却不可以<br> ⑤lock可以提高多个线程进行读操作的效率.</p>
-<p>9.volatile关键字？<br> 答：保证共享变量的可见性。可见性是指一个线程修改了共享变量的值，其他线程能读到这个修改的值。</p>
-<p>10.synchronized关键字与volatile的区别？<br> 答：①volatile主要是解决多个线程间的可见性，synchronized主要是解决多个线程间的 访问资源的同步性。<br> ②volatile关键字只能用于变量，而synchronized关键字可用于方法和代码块<br> ③volatile关键字不会发生阻塞，而synchronized关键字可能发生阻塞<br> ④volatile性能较好</p>
-<p>11.什么是线程池？为什么要使用？常见的线程池及其应用场景？线程池的工作队列?<br> 答：(1)线程池就是创建若干个可执行的线程放入一个容器中，有任务需要处理时，会提交到线程池中的任务队列，处理完之后线程不会被销毁，而是在线程池等待下一个任务。<br> (2)因为创建一个线程需要消耗大量的内存，所以应避免频繁的创建和销毁。<br> (3)①FixedThreadPool:可重用固定线程池：适用于负载比较重的服务器<br> ②SingleThreadExecutor：只会创建一个线程执行任务：适用于需要保证顺序执行各个任务；并且在任意时间点，没有多线程活动的场景。<br> ③CacherThreadPool：会根据需要调整线程数量的线程池：适用于负载比较轻的服务器</p>
-<p>(4)ArrayBlockingQueue：是一个基于数据结构的有界阻塞队列<br> LinkedBlockingQueue：基于链表结构的阻塞队列<br> SynchronousQueue：不存储元素的阻塞队列<br> PriorityBlockingQueue：具有优先级的无限阻塞队列</p>
-<p>12.创建多线程的方式？<br> 继承Thread类<br> 实现Runnable接口<br> 实现Callable接口<br> 使用Executor框架</p>
-<p>数据结构与算法<br> 线性结构：只有唯一的第一个和最后一个，除了第一位都有唯一“前继”，除了最后一位都有唯一“后继<br> 非线性结构（树、网状）</p>
-<p>数据结构类型：<br> 线性表*：n个类型相同的有限序列<br> 线性表的存储结构：顺序表ArrayList(只存数据不存地址，位置隐含着地址，)、<br> 链表<br> 单链表():每个节点有两个域，一个域存放当前数据，另一个存 放下一个单元的指针.(在第一个节点前面添加哑元 节点)<br> 双链表LinkedList:每个节点有三个域，第一个域存放上一个单 元的指针，第二个节点存放数据，第三个节点存放下一个节点 的指针.(在第一个和最后一个存放哑元节点)</p>
-<p>（数组：<br> 字符串//：<br> 栈：先进后出.push pop peek(获取).存储结构可以是数组也可以是链表<br> 队列：先进先出。只允许在一端插入，另一端删除.存储结构可以是数组也可以是链表<br> 广义表//：</p>
-<p>树(节点度/树的度为最大的节点度/节点度为0成为叶子节点或终端节点)）都是线性表：<br> 二叉树：先序遍历、中序遍历、后续遍历(完全二叉树、平衡二叉树(它是一棵空树或它的左右两个子树的高度差的绝对值不超过1，并且左右两个子树都是一棵平衡二叉树)、二叉查找(排序/搜索)树(左子树&lt;根&lt;右子树))<br> B树：O(log n) (2-3树，最简单的B树)<br> B+树<br> 红黑树(特殊的二叉查找树):<br> 哈希表：（数据结构-&gt;顺序表加链表）最高效。O(1)可能会有hash冲突</p>
-<p>图：</p>
-<p>算法:<br> 冒泡：<br> 选择：遍历两次，第一次遍历最小的下标，第二次遍历全部找出最小值填入下标。<br> 插排：遍历一次，从第2个数开始，前面的看成一个有序数组，后面的看成无序数组<br> 希尔：（先进行简单分组排序的插排）交换法(效率低)、移动法<br> 快排：冒泡的改进版：取中间的数作为基准数，定义low跟high，low从左往右，high从右往左找出比基准数大跟的小的值交换位置。<br> 二分查找：<br> ①不使用递归：<br> ②使用递归：</p>
-<p>时间/空间复杂度：运行程序需要多少次，N接近无穷大时。</p>
-<p>牛客网面试题：</p>
-<p>1.什么是Java内存模型？<br> 答：Java内存模型即Java Memory Model，简称JMM。JMM定义了Java  虚拟机(JVM)在计算机内存(RAM)中的工作方式。程序中的变量存储在主内存中，每个线程拥有自己的工作内存并存放变量的拷贝，线程读写自己的工作内存，通过主内存进行变量的交互。JMM就是规定了工作内存和主内存之间变量访问的细节，通过保障原子性、有序性、可见性来实现线程的有效协同和数据的安全</p>
-<p>JVM内存结构:运行时数据区<br> Java对象模型:对象头、实例数据、对齐填充。</p>
-<p>2.Array跟ArrayList的区别？<br> 答：Array的长度是固定的，ArrayList的长度是可变的，但底层也是数组，通过数组的扩容到原数组的1.5倍。Array可以包含基本类型和对象类型，ArrayList只能包含对象类型</p>
-<p>3.谈一谈，使用标签库有什么好处？如何自定义JSP标签？</p>
-<ul>
-<li>分离JSP页面的内容和逻辑，简化了Web开发；</li>
-<li>开发者可以创建自定义标签来封装业务逻辑和显示逻辑；</li>
-<li>标签具有很好的可移植性、可维护性和可重用性；</li>
-<li>避免了对Scriptlet的使用</li>
-</ul>
-<p>可以使用一个类来继承TagSupport/BodyTagSupport/SimpleTagSupport类，然后重写doStartTag()、doEndTag()等方法，定义标签要完成的功能，即可以完成自定义标签</p>
-<p>4.使用过Spring的注解吗？说一说@autowired跟@Resource的区别？<br> 答：都是自动装配bean。前者优先按类型扫描，如果扫描不到通过名称扫描。<br> 后者刚好相反.</p>
-<p>5.JAVA应用服务器有哪些？<br> 答：Tomcat、Jetty、JBoss</p>
-<p>6.Mybatis中的动态SQL语句？<br> 答：动态SQL是指我们可以通过一些标签自定义SQL语句，使语句更加灵活，且可以防止SQL注入，常用标签有if、choose、when、trim、where等</p>
-<p>7.JVM内存模型？<br>  答：JVM内存模型是指JVM的内存模型包括方法区（线程共享）：常量、静态变量、JIT(即时编译器)编译后的代码也都在方法区；堆内存（线程共享）：垃圾回收的主要场所，用来存储对象实例；程序计数器：  当前线程执行的字节码的位置指示器；虚拟机栈（栈内存）：保存局部变量、基本数据类型变量以及堆内存中某个对象的引用变量；本地方法栈：为JVM提供使用native 方法的服务运行时常量池；</p>
-<p>8.多线程同步的方法？<br> 答:多线程最常见的同步方法是使用synchronized同步锁(可以锁普通方法、静态方法、代码块)，使用显示锁Lock以及使用volatile关键字来保证线程同步。</p>
-<p>9.为什么重写equals要重写hashcode()？<br> 答:如果不重写的话，hashmap存储相同key的value值的时候，会存放不同的值。因为相同对象的hashcode不相同，</p>
-<p>10.接口：接口的字段默认是final static，接口名只能是public abstract修饰.接口可以extends多个接口.可以有静态方法或者default方法，但是普通方法不能有实体。无构造函数<br> 抽象：抽象类的字段跟普通类一样。可以定义普通方法跟抽象方法。如果方法无实体必须是抽象方法。可以定义构造函数。接口跟抽象都不能被实例化</p>
-<p>11.Linux查看线程的命令<br> 答：ps -ax (-a) 或 top -H</p>
-<p>12.正向代理、反向代理<br> 答：正向代理：你找马云借钱，马云不借，你找朋友向马云借钱，马云借给你朋友但是他不知道是真实是你要的。（隐藏(代理)客户端）<br> 反向代理：你打电话给10086解决问题，但是并不知道是谁接的电话。（隐藏(代理)服务器）</p>
-<p>13.动态代理 静态代理<br>  答：纵观静态代理与动态代理，它们都能实现相同的功能，而我们看从静态代理到动态代理的这个过程，我们会发现其实动态代理只是对类做了进一步抽象和封装，使其复用性和易用性得到进一步提升而这不仅仅符合了面向对象的设计理念，其中还有AOP的身影，这也提供给我们对类抽象的一种参考。关于动态代理与AOP的关系，个人觉得AOP是一种思想，而动态代理是一种AOP思想的实现！</p>
-<p>14.@Responbody的作用：把返回值变成Json字符串形式</p>
-<p>15.索引多了会有什么影响？<br> 答：降低数据增删改的性能.</p>
-<p>16.如何防止SQL注入？<br> ①SpringMVC自定义拦截器：(1)自定义拦截器类实现HandlerIntercepor接口(2)配置拦截器<br> ②mybatis传入值使用#{}，预编译</p>
-<p>17.常量池：<a target="_blank" rel="noopener" href="https://blog.csdn.net/yuan_qh/article/details/100851544">https://blog.csdn.net/yuan_qh/article/details/100851544</a></p>
-<p>18.Cooike跟Session的区别？<br> 答：为什么使用?：因为web应用使用http传输数据，http是一种无状态协议，每次传输完后都会关闭连接，再次交换数据又要再次连接。而使用Cooike跟Session可以解决。<br> Cooike是保存在客户端上的，即电脑的硬盘上。(效果好，安全性差，但是可加密)<br> Session是保存在服务器上的，即浏览器一关闭就失效。(效果差，安全性高)</p>
-<p>19.计算一个数组的元素数量</p>
-<p>20.List list = new ArrayList();和ArrayList list=new ArrayList();的区别<br> 答：List是一个接口，有很多实现方法比如Arraylist跟LinkedList，左边是先创建一个ArrayList对象然后上溯成List对象，右边是创建一个ArrayList实例对象。左边实现了面向对象的特性。左边为编译时的类型，右边为运行时的类型。</p>
-<p>21.Map 中的 key 和 value 可以为 null 么？<br> 答：HashMap的key跟value可以均为null，<br> HashTable的key跟value均不可为null.</p>
-<ol>
-<li>JSP与Servlet的区别？<br> 答：<br> （1）JSP是HTML里写JAVA代码，框架是HTML，而Servlet是JAVA代码里写HTML代码，其本身是JAVA类<br> （2）JSP把显示和逻辑分隔，意味着两者开发可并发；而Servlet没有把两者分离<br> （3）JSP允许特殊标签直接嵌入到HTML页面，HTML内容与JAVA内容也可放在单独文件中，HTML内容的任何变动都会自动编译装进服务程序；而Servlet独立处理静态逻辑跟动态逻辑，任何改动都要重启服务器<br> （4）Servlet需要在web.xml配置，而JSP不用<br> （5）JSP主要在视图层负责显示，Servlet主要在控制层，负责调度联系。</li>
-</ol>
-<p>23.JSP有哪些动作？作用分别是什么？<br> 答：<br> Jsp:include：页面被请求时引入一个文件<br> Jsp:usebean：使用Javabean<br> Jsp:setProperty：设置Javabean的属性<br> Jsp:getProperty：获取Javabean的属性<br> Jsp:forward：请求转发页面<br> Jsp:plugin：为Java插件生成Object或EMBED标记</p>
-<p>24.Servlet是什么？<br> 答：一门用于开发动态web资源的技术，若想要开发一个动态web资源，则①编写一个Java类，实现servlet接口②把编写好的Java类部署到web服务器中。</p>
-<p>25.Servlet的生命周期：</p>
-<p>26.Servlet的方法：<br> Void init()<br> Void Service()<br> Void destory()<br> getServletInfo()<br> getServletConfig()</p>
-<p>27.Get跟post的区别？<br> ①get是向浏览其获取数据，而post是向浏览其发送数据<br> ②get是不安全的，数据被放在请求的URL中，而post的所有请求对用户是不可见的<br> ③get的传输量小，post的传输量大<br> ④get是form表单默认的方法，SpringMVC不支持POST，得重定向或在配置文件设置</p>
-<p>28.Forward跟redirect的区别？<br> 答：①forward是服务器行为，request一次，会改变URL地址，可共享转发前后的数据，效率比较高<br> ②redirect是客户端行为，request两次，不会改变URL地址，数据不可共享，效率比较低</p>
-<p>29.JSP的工作原理<br> 答：JSP是一种简易版的Servlet，但与Servlet的工作方式不太一样，Servlet是先编译后部署的，而JSP是先部署后编译的，JSP会在客户端第一次请求JSP文件的时候被编译为httpJSPPage类，该类会临时存放在服务器工作目录里。</p>
-<p>30.getAttribute跟getParameter的区别？<br> 答：getAttribute获取的是POST/GET传递参数值和URL中的参数，类型是String<br> getParameter获取的是对象容器中的数值，类型是Object</p>
-<p>31.JSP内置对象：request、response、session、page、pageContext、application、config、execution、out<br> 四大作用域：<br> Request：代表与一个请求相关的对象和属性<br> Session:相当于一个容器，存放一个用户体验相关的对象和属性<br> Applicaton:获取的是与整个web应用程序相关的对象和属性<br> Page:获取的是与页面相关的对象和属性</p>
-<p>32.JSP常用指令：<br> 答：inlcude：静态页面被请求时引用一个文件<br> Tarlib引入一个标签库<br> Page；定义页面一些属性</p>
-<p>33.会话跟踪技术：session、cooike、重写URL、隐藏表单域</p>
-<p>34.异常类型<br> 答：<br> 空指针：nulPointerException<br> 数组下表越界：IndexoutOfBoundsException<br> 被除数为零：ArithmeticException<br> 类型转换异常：classcastException<br> 找不到类：classNotFoundException<br> 找不到bean<br> Cannot resolve the method “GET”</p>
-<p>36.如何快速适应岗位<br> ①与周围的同事搞好人际关系，尽快适应工作氛围<br> ②把工作需要掌握的技能点学扎实，尽快上手工作，高效工作。<br> ③实际工作中有不懂的要多去问前辈。</p>
-<p>37.Super的用法：<br> ①Super.变量或对象<br> ②super.方法<br> ③super.构造器</p>
-<p>38.List的实现类<br> 答：ArrayList,LinkedList,Vector<br> 增 O(n) O(1)<br> 删 O(n) O(1)<br> 查 O(1) O(n)</p>
-<p>红黑树的复杂度<br> 增 O(logn)<br> 删 O(logn)<br> 查 O(logn)</p>
-<p>39.GIT常用的指令：<br> Status:查看仓库状态<br> Log:查看日志<br> Commit-m:提交描述<br> Checkout:把没保存的删除<br> reset:把文件是暂存的状态取消</p>
-<p>40.Spring是如何解决并发访问的线程安全性问题的？<br> 答：因为SpringMVC的Controller是singleTon的，意味着每个request会公用一个instance，这样会导致数据交错杂糅的问题。<br> ①在Controller中使用ThreadLocal变量<br> ②在Spring配置文件中配置Controller为prototype</p>
-<p>ThreadLocal：是一个线程内部的存储类，可以在指定线程内存储数据，数据存储后，只有指定线程可以得到存储数据</p>
-<p>41.设计模式中的singleton与spring中的singleton不一样<br> 答：设计模式中的singleton是classloader里只有一个class<br> 而spring中的singleton是每一个IOC容器里只有一个bean</p>
-<p>42.Spring为什么要用singleton？为什么不用静态方法?<br> 答：提高性能，每个容器只有一个Bean，这个bean是线程共享的。但是得保证不能不出修改bean的方法，不然不能保证线程安全。<br> 使用静态方法，失去了多态的优越性，不符合OOP的思想，使程序难以维护。</p>
-<p>43.如何解决高并发的问题？<br> 答：①使用缓存，NOSQL数据库如Redis、MongoDB<br> ②优化数据库表结构，分库分表<br> ③使用消息队列<br> ④尽量使用HTML静态页面<br> ⑤使用分布式，搭建集群</p>
-<p>44.进程间通信的方法？<br> 答：①管道<br> ②信号<br> ③使用socket套接字<br> ④消息队列</p>
-<p>45.为什么要转软件开发？你觉得相对于计算机专业的优势是什么？<br>  答：因为从小就接触电脑，对电脑比较熟悉。并且能长时间对着电脑。然后是对本专业的工作不感兴趣，两个哥哥都是做软件开发的，可能对我有点引导的作用，然后我接触了Java之后也比较感兴趣，并且决定了未来就奋斗在这个行业，并且有自己的职业规划，前面1-2年主要是学好技术，然后看工作之后的情况，大概率是往Java架构师或者高级工程师方向走，小概率会考虑转java大数据。<br>  优势：因为这个行业是我自己主动选择的，很多大学生再选专业的时候不知道这个专业是干什么的，最后就听别人说就选了，而我是自己选择的，而且参考两个哥哥，我也知道他们的工作是996，即便如此我也毅然选择了这个岗位，而且我对自己的学习热情有足够的信心，能够长时间跟着学习。</p>
-<p>46.优点：做事特别认真，负责任，把工作放在第一位置，工作效率也不错。<br> 缺点：自己专注做事情的时候不喜欢理别人，给人看起来不好交流。还有比较年轻没经验，比较浮躁心急。</p>
-<p>47.数据库连接步骤<br> ①加载JDBC驱动<br> ②提供JDBC连接的URL<br> ③创建statement对象<br> ⑤执行SQL语句<br> ⑥处理结果<br> ⑦关闭连接（JDBC对象）</p>
-<p>48.jQuery获取属性的方法：</p>
-<p>  这是一个DIV </p>
-<p>$(“#id”).attr(“name”)<br> $(“#id”).attr(“jy”)</p>
-<p>49.Limit(value1,value2)：参数1为行数开始，参数2为行数目</p>
-<p>50.JDK1.8新特性：<br> ①出现lambda表达式（匿名内部类）<br> ②红黑树数据结构<br> ③时间日期API（localDate、localTime、localDateTime）<br> ④接口可以定义静态方法跟default方法</p>
-<p>51.String常用的方法：toString,hashCode,equals,charAt,trim,toArrayChar,subString…</p>
-<p>52.http是无状态协议，80端口<br> https是由SSL和HTTP协议构建的可以进行加密传输跟身份验证的协议，443端口</p>
-<p>53.端口是用于区分进程的，IP是电脑的网络地址，URL是访问资源路径。</p>
-<p>54.状态码<a target="_blank" rel="noopener" href="https://blog.csdn.net/xinxin19881112/article/details/6565823">https://blog.csdn.net/xinxin19881112/article/details/6565823</a><br> 200：正常访问<br> 3xx：跟重定向有关<br> 403：forbideen，禁止访问<br> 404：找不到资源，一般为URL写错，页面跳转出错等。<br> 500：服务器出错，如静态页面标签、属性写错。。</p>
-<p>55.您了解我们公司吗？<br> 答：华讯网络系统有限公司、华讯网络存储系统有限公司<br> 世界500强电子科技集团，还是一家国企。云计算跟大数据是最吸引我的。为金融、电信、交通、甚至政府军队等行业提供IT解决方案。</p>
-<p>56.统一建模语言：UML</p>
-<p>57.使用Springmvc有什么好处：<br> 答：Spring是用来开发java  web主流的框架，相比于之前的用Servlet开发web，一定程度上简化了工作量，使用servlet的话需要每个请求都去web.xml中配置一个servlet节点，而使用Springmvc中的dispatchServelt他会拦截所有的请求，找到合适的处理器，所以只需要配置一个dispatchServlet就可以了。</p>
-<p>58.Mysql的性能优化？<br> 答：<br> 表的设计合理化（符合三大范式）<br> 优化配置my.ini<br> 适当添加索引<br> 读写分离</p>
-<p>59.为什么要使用单例模式？单例模式有几种实现方式？什么情况下要用到单例模式？<br> 单例模式可以保证在一个类中只有一个该对象，节省了系统资源，对于一些需要频繁创建销毁的对象，使用单例模式可以提高性能<br> 懒汉式（调用的时候再进行初始化，可以保证线程安全，防止指令重排，双重检查优化）<br> 饿汉式（类加载的时候就进行初始化）<br> 静态内部类（在饿汉模式基础上通过类的加载过程原理进行延时加载）<br> 枚举<br> 双重校验锁<br> 序列化<br> 需要经常创建和销毁的对象，创建对象时消耗资源过多但是又要经常使用的对象，如数据源，Session等</p>
-<p>60.索引要在什么情况下使用？<br> 答：（1）关联查询的外键字段要加索引<br> （2）会被排序的栏位（被放在order by方法中）<br> （3）会被查询的栏位（被放在where方法中）<br> （4）会被groud的栏位</p>
-<p>61.外键的作用？<br> 答：保证数据库的一致性，完整性。你插入表2学号字段的值必需要求在表1的学号字段能找到。 同一时候。假设你要删除表1的某个学号字段。必须保证表2中没有引用该字段值的列，否则就没法删除。</p>
-<p>62.Form表单的请求提交跟AJAX请求的提交<br> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiao-xue-di/p/11237154.html">https://www.cnblogs.com/xiao-xue-di/p/11237154.html</a></p>
-<p>63.面向对象分析OOA(analysis) 面向对象方法OOD(Designe) 面向对象编程OOP(programming)</p>
-<ol>
-<li></li>
-</ol>
-<p>select count(*) from tb; ===&gt; row_size<br> select count(1) from tb; ====&gt;row_size<br> select count(null) from tb; ====&gt;0<br> select count(filed_has_null) from tb; =====&gt; row_size - null_row_size<br> count函数的参数值为null的话,将累加0,参数值不为null将累加1.</p>
-<p>65.Math常用函数：<br> 答：<br> Math.sqrt() : 计算平方根<br> Math.cbrt() : 计算立方根<br> Math.pow(a, b) : 计算a的b次方<br> Math.max( , ) : 计算最大值<br> Math.min( , ) : 计算最小值<br> Math.abs() : 取绝对值<br> Math.ceil(): 天花板的意思，就是逢余进一<br> Math.floor() : 地板的意思，就是逢余舍一<br> Math.rint(): 四舍五入，返回double值。注意.5的时候会取偶数<br> Math.round(): 四舍五入，float时返回int值，double时返回long值</p>
-<ol>
-<li></li>
-<li><p>广度优先遍历、深度优先遍历<a target="_blank" rel="noopener" href="https://www.cnblogs.com/nr-zhang/p/11236369.html">https://www.cnblogs.com/nr-zhang/p/11236369.html</a></p>
-</li>
-</ol>
-<p>68.操作系统中进程调度策略有几种？<br> ①先来先服务算法<br> ②优先级调度算法<br> ③时间片论转调度算法<br> ④多级反馈调度算法</p>
-<p>69.父子类初始化顺序：<br> 父类静态代变量、<br> 父类静态代码块、<br> 子类静态变量、<br> 子类静态代码块、<br> 父类非静态变量（父类实例成员变量）、<br> 父类构造函数、<br> 子类非静态变量（子类实例成员变量）、<br> 子类构造函数。</p>
-<p>70.linux下如何重启nginx<br> ./nginx -s reload</p>
-<p>71.双亲委派机制<br> 答：</p>
-<p>AppClassLoader-&gt;是否加载过-&gt;ExtentClassLoader-&gt;是否加载过-&gt;BootstrapClassLoader-&gt;是否加载过，若无，则自己加载-&gt;自己无法加载-&gt;ExtendClassLoader加载-&gt;自己无法加载-&gt;AppClassLoader-&gt;无法加载-&gt;ClassNotFoundException</p>
-<p>72.Java中的引用类型：<br> 强引用：Object o = new Object();栈里的o指向堆里的Object对象，最普通的引用。<br> 软引用：软引用本身也是一个对象，正常不会被回收，当内存空间不足的时候，垃圾回收器回收软引用的对象。（非常适合当缓存，大对象的缓存，常用对象的缓存）<br> 弱引用：遇到GC()就会被回收（没有容器指向的时候就需要清楚的缓存，ThreadLocal,WeakHashMap）<br> 虚引用：垃圾回收器看见马上回收，永远get不到那个对象，并且当对象被回收时，会把信息加到QUEUE队列里。常用于管理堆外内存：通过QUEUE检测到对象被回收，然后清除堆外内存。</p>
-<p>73.ArraysList的扩容机制：默认10个元素，负载因子0.5<br> 74.HashMap的扩容机制：默认16个元素，负载因子0.75</p>
-<p>75.HashMap的存储原理<br>  在JDK1.8之前，HashMap底层数据结构是数据加链表。hashMap.put方法传入一个K,V对象，对象被转换成Entry(k,v)对象,然后调用该对象key值hashcode方法，对返回的hashcode进行（hashcode&amp;数组长度-1）算法后算出下标，放入数组中，如果不同的对象且hashcode不同而存放的位置相同，则称发生了hash冲突。若对象hashcode相同，则会遍历元素进行equals进行比较，若有返回true的，则进行覆盖，否则被视为全新对象添加在链表末尾（JDK1.8之后，JDK1.8之前是头插入法）。如果链表长度大于8则转换为红黑树，如果小于6则重新退化成链表。</p>
-<p>76.我看到招聘会上说会有去上海集体培训，这个培训是什么时候去，实习的时候还是等正式入职的时候。</p>
-<p>平时工作会不会经常出差。项目组大概有多少个人，人员分配是怎么样的。<br> 薪资架构大概是怎么样的?五险一金怎么分配?</p>
-<p>77.如何定义一个ajax函数：</p>
-<p>$.ajax({<br> Type:<br> Url:<br> dataType:<br> Data:<br> });</p>
-<p>78.TCP/IP传输原理：</p>
-<p><img src="https://www.icode9.com/i/ll/?i=20210102144928352.png?,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Jhc2NvMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>79.TCP三次握手：<br> <img src="https://www.icode9.com/i/ll/?i=20210102144912778.png?,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Jhc2NvMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
-<p>80.Session的工作原理<br>  答：用户第一次请求的时候，服务器会创建一个Session对象，并存入到服务器的Session列表中，key为一个32位长度随机字符串SessionId，value为对应的Session对象。SessionId被包装成Cookie返回给浏览器，浏览器接受到Cookie后会保存在浏览其缓存中，下次再请求时请求头会携带该Cookie。</p>
-<ol>
-<li><img src="https://www.icode9.com/i/ll/?i=20210102144951440.png?,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0Jhc2NvMQ==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
-</ol>
-<p><strong>标签：</strong><a target="_blank" rel="noopener" href="https://www.icode9.com/tags-JAVA-0.html">JAVA</a>,<a target="_blank" rel="noopener" href="https://www.icode9.com/tags-%E5%AF%B9%E8%B1%A1-0.html">对象</a>,<a target="_blank" rel="noopener" href="https://www.icode9.com/tags-Spring-0.html">Spring</a>,<a target="_blank" rel="noopener" href="https://www.icode9.com/tags-%E9%9D%A2%E7%BB%8F-0.html">面经</a>,<a target="_blank" rel="noopener" href="https://www.icode9.com/tags-%E7%BA%BF%E7%A8%8B-0.html">线程</a>,<a target="_blank" rel="noopener" href="https://www.icode9.com/tags-%E6%96%B9%E6%B3%95-0.html">方法</a>,<a target="_blank" rel="noopener" href="https://www.icode9.com/tags-%E5%8A%A0%E8%BD%BD-0.html">加载</a><br> 来源： <a target="_blank" rel="noopener" href="https://blog.csdn.net/Basco1/article/details/112096416">https://blog.csdn.net/Basco1/article/details/112096416</a></p>
-<ol start="81">
-<li>只要进入了try catch语句块，finally一定会被执行。</li>
-</ol>
-<p>除了System.exit(0),或者线程被打断。try catch中的return对finally是无效的，finally中的return会覆盖上面的return</p>
-<h1 id="美的"><a href="#美的" class="headerlink" title="美的"></a>美的</h1><p>1.递归逆序链表</p>
-<p>2.int[]最大的乘积</p>
-<p>3.消除序列(东南西北)</p>
-<p>4.蚂蚁找食物</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://agayt.github.com/p/65044/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -724,6 +441,93 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/p/65044/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://agayt.github.com/p/65049/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="AGA">
+      <meta itemprop="description" content="hiahiahia">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿甘的blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/p/65049/" class="post-title-link" itemprop="url">面经</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-09-15 16:21:36" itemprop="dateCreated datePublished" datetime="2022-09-15T16:21:36+08:00">2022-09-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-10-04 14:35:45" itemprop="dateModified" datetime="2022-10-04T14:35:45+08:00">2022-10-04</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>面试常考知识点</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/p/65049/">
                 阅读全文 &raquo;
               </a>
             </div>
